@@ -7,112 +7,78 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #080C14;
-    --surface: #0E1420;
-    --surface2: #141B2B;
-    --border: #1E2A40;
-    --accent: #3B7BFF;
-    --gold: #F5C542;
-    --green: #22C87A;
-    --red: #FF4C4C;
-    --orange: #FF8C42;
-    --text: #E8EDF5;
-    --muted: #6B7A99;
-    --subtle: #2A3550;
+    --bg:#080C14;--surface:#0E1420;--surface2:#141B2B;--border:#1E2A40;
+    --accent:#3B7BFF;--gold:#F5C542;--green:#22C87A;--red:#FF4C4C;
+    --text:#E8EDF5;--muted:#6B7A99;
   }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body { background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; font-size:14px; line-height:1.6; min-height:100vh; padding:32px 24px; }
-  h1 { font-family:'Syne',sans-serif; font-size:22px; font-weight:700; color:var(--text); margin-bottom:4px; }
-  h2 { font-family:'Syne',sans-serif; font-size:13px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:16px; }
-  .subtitle { color:var(--muted); font-size:13px; margin-bottom:32px; }
-
-  .layout { display:grid; grid-template-columns:320px 1fr; gap:24px; max-width:1100px; margin:0 auto; }
-  @media(max-width:800px){ .layout { grid-template-columns:1fr; } }
-
-  /* CONTROLS */
-  .controls { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:24px; height:fit-content; position:sticky; top:24px; }
-  .control-group { margin-bottom:20px; }
-  .control-label { font-family:'Syne',sans-serif; font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.07em; margin-bottom:6px; display:flex; justify-content:space-between; align-items:center; }
-  .control-label span { font-family:'DM Sans',sans-serif; font-size:13px; font-weight:500; color:var(--gold); text-transform:none; letter-spacing:0; }
-  input[type=range] { width:100%; accent-color:var(--accent); cursor:pointer; height:4px; }
-  .divider { height:1px; background:var(--border); margin:20px 0; }
-  .preset-row { display:flex; gap:8px; margin-bottom:20px; }
-  .preset-btn { flex:1; padding:7px 4px; background:var(--surface2); border:1px solid var(--border); border-radius:8px; color:var(--muted); font-family:'Syne',sans-serif; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; cursor:pointer; transition:all 0.15s; text-align:center; }
-  .preset-btn:hover { border-color:var(--accent); color:var(--accent); }
-  .preset-btn.active { background:rgba(59,123,255,0.12); border-color:var(--accent); color:var(--accent); }
-  .preset-btn.bear { }
-  .preset-btn.base { }
-  .preset-btn.bull { }
-
-  /* RESULTS */
-  .results { display:flex; flex-direction:column; gap:20px; }
-
-  /* SUMMARY CARDS */
-  .summary-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
-  @media(max-width:600px){ .summary-cards { grid-template-columns:1fr 1fr; } }
-  .summary-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:16px; }
-  .summary-card.highlight { border-color:var(--accent); background:rgba(59,123,255,0.06); }
-  .summary-card.gold { border-color:var(--gold); background:rgba(245,197,66,0.06); }
-  .sc-label { font-family:'Syne',sans-serif; font-size:10px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.07em; margin-bottom:6px; }
-  .sc-val { font-family:'Syne',sans-serif; font-size:20px; font-weight:700; color:var(--text); }
-  .sc-val.green { color:var(--green); }
-  .sc-val.gold { color:var(--gold); }
-  .sc-sub { font-size:11px; color:var(--muted); margin-top:3px; }
-
-  /* MAIN TABLE */
-  .table-wrap { background:var(--surface); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
-  table { width:100%; border-collapse:collapse; }
-  thead tr { background:var(--surface2); }
-  th { font-family:'Syne',sans-serif; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.07em; color:var(--muted); padding:12px 16px; text-align:right; border-bottom:1px solid var(--border); }
-  th:first-child { text-align:left; }
-  td { padding:12px 16px; text-align:right; border-bottom:1px solid rgba(30,42,64,0.5); font-size:13px; color:var(--muted); }
-  td:first-child { text-align:left; font-family:'Syne',sans-serif; font-size:12px; font-weight:700; color:var(--text); }
-  tr:last-child td { border-bottom:none; }
-  tr.net-row td { color:var(--text); font-weight:500; border-top:1px solid var(--border); }
-  tr.net-row td:first-child { color:var(--green); }
-  .bar-cell { padding:10px 16px; }
-  .bar-wrap { background:var(--surface2); border-radius:4px; height:8px; overflow:hidden; }
-  .bar-fill { height:100%; border-radius:4px; background:linear-gradient(90deg, var(--accent), var(--green)); transition:width 0.4s ease; }
-  .bar-fill.renewal { background:var(--gold); }
-
-  /* SENSITIVITY MATRIX */
-  .matrix-wrap { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:20px; }
-  .matrix-title { font-family:'Syne',sans-serif; font-size:12px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.07em; margin-bottom:4px; }
-  .matrix-sub { font-size:12px; color:var(--muted); margin-bottom:16px; }
-  .matrix-table { width:100%; border-collapse:collapse; font-size:12px; }
-  .matrix-table th { font-family:'Syne',sans-serif; font-size:10px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em; padding:8px 10px; text-align:center; border-bottom:1px solid var(--border); }
-  .matrix-table th:first-child { text-align:left; }
-  .matrix-table td { padding:8px 10px; text-align:center; border-bottom:1px solid rgba(30,42,64,0.4); }
-  .matrix-table td:first-child { text-align:left; font-family:'Syne',sans-serif; font-size:11px; font-weight:700; color:var(--muted); }
-  .matrix-table tr:last-child td { border-bottom:none; }
-  .cell-low { color:#FF6B6B; }
-  .cell-mid { color:var(--gold); }
-  .cell-high { color:var(--green); }
-  .cell-active { background:rgba(59,123,255,0.15); border-radius:6px; color:var(--accent) !important; font-weight:700; }
-
-  /* ASSUMPTIONS NOTE */
-  .note { background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--muted); border-radius:0 10px 10px 0; padding:14px 16px; font-size:12px; color:var(--muted); line-height:1.7; }
-  .note strong { color:var(--text); }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.6;min-height:100vh;padding:32px 24px;}
+  h1{font-family:'Syne',sans-serif;font-size:22px;font-weight:700;color:var(--text);margin-bottom:4px;}
+  h2{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:16px;}
+  .subtitle{color:var(--muted);font-size:13px;margin-bottom:32px;}
+  .layout{display:grid;grid-template-columns:320px 1fr;gap:24px;max-width:1100px;margin:0 auto;}
+  @media(max-width:800px){.layout{grid-template-columns:1fr;}}
+  .controls{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px;height:fit-content;position:sticky;top:24px;}
+  .control-group{margin-bottom:20px;}
+  .control-label{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;}
+  .control-label span{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--gold);text-transform:none;letter-spacing:0;}
+  input[type=range]{width:100%;accent-color:var(--accent);cursor:pointer;height:4px;}
+  .divider{height:1px;background:var(--border);margin:20px 0;}
+  .preset-row{display:flex;gap:8px;margin-bottom:20px;}
+  .preset-btn{flex:1;padding:7px 4px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--muted);font-family:'Syne',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;cursor:pointer;transition:all 0.15s;text-align:center;}
+  .preset-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .preset-btn.active{background:rgba(59,123,255,0.12);border-color:var(--accent);color:var(--accent);}
+  .results{display:flex;flex-direction:column;gap:20px;}
+  .summary-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+  @media(max-width:600px){.summary-cards{grid-template-columns:1fr 1fr;}}
+  .summary-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;}
+  .summary-card.highlight{border-color:var(--accent);background:rgba(59,123,255,0.06);}
+  .summary-card.gold{border-color:var(--gold);background:rgba(245,197,66,0.06);}
+  .sc-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:6px;}
+  .sc-val{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:var(--text);}
+  .sc-val.green{color:var(--green);} .sc-val.gold{color:var(--gold);}
+  .sc-sub{font-size:11px;color:var(--muted);margin-top:3px;}
+  .table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+  table{width:100%;border-collapse:collapse;}
+  thead tr{background:var(--surface2);}
+  th{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);padding:12px 16px;text-align:right;border-bottom:1px solid var(--border);}
+  th:first-child{text-align:left;}
+  td{padding:12px 16px;text-align:right;border-bottom:1px solid rgba(30,42,64,0.5);font-size:13px;color:var(--muted);}
+  td:first-child{text-align:left;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--text);}
+  tr:last-child td{border-bottom:none;}
+  tr.net-row td{color:var(--text);font-weight:500;border-top:1px solid var(--border);}
+  tr.net-row td:first-child{color:var(--green);}
+  .bar-cell{padding:10px 16px;}
+  .bar-wrap{background:var(--surface2);border-radius:4px;height:8px;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--accent),var(--green));transition:width 0.4s ease;}
+  .bar-fill.renewal{background:var(--gold);}
+  .matrix-wrap{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;}
+  .matrix-title{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:4px;}
+  .matrix-sub{font-size:12px;color:var(--muted);margin-bottom:16px;}
+  .matrix-table{width:100%;border-collapse:collapse;font-size:12px;}
+  .matrix-table th{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;padding:8px 10px;text-align:center;border-bottom:1px solid var(--border);}
+  .matrix-table th:first-child{text-align:left;}
+  .matrix-table td{padding:8px 10px;text-align:center;border-bottom:1px solid rgba(30,42,64,0.4);}
+  .matrix-table td:first-child{text-align:left;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--muted);}
+  .matrix-table tr:last-child td{border-bottom:none;}
+  .cell-low{color:#FF6B6B;} .cell-mid{color:var(--gold);} .cell-high{color:var(--green);}
+  .cell-active{background:rgba(59,123,255,0.15);border-radius:6px;color:var(--accent)!important;font-weight:700;}
+  .note{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--muted);border-radius:0 10px 10px 0;padding:14px 16px;font-size:12px;color:var(--muted);line-height:1.7;}
+  .note strong{color:var(--text);}
 </style>
 </head>
 <body>
-
 <div style="max-width:1100px;margin:0 auto;">
   <h1>RBI Insurance Brokerage — Revenue Model</h1>
   <p class="subtitle">Adjust assumptions below. All figures are commission revenue only, before OpEx.</p>
-
   <div class="layout">
-
-    <!-- CONTROLS -->
     <div class="controls">
       <h2>Assumptions</h2>
-
       <div class="preset-row">
         <div class="preset-btn bear" onclick="setPreset('bear')">Bear</div>
         <div class="preset-btn base active" onclick="setPreset('base')">Base</div>
         <div class="preset-btn bull" onclick="setPreset('bull')">Bull</div>
       </div>
-
       <div class="control-group">
         <div class="control-label">Monthly Loan Closings <span id="lbl-loans">300</span></div>
         <input type="range" id="sl-loans" min="100" max="600" step="25" value="300" oninput="update()">
@@ -129,9 +95,7 @@
         <div class="control-label">Commission Rate <span id="lbl-commission">12%</span></div>
         <input type="range" id="sl-commission" min="8" max="18" step="0.5" value="12" oninput="update()">
       </div>
-
       <div class="divider"></div>
-
       <div class="control-group">
         <div class="control-label">Y1 Capture Rate <span id="lbl-capture">40%</span></div>
         <input type="range" id="sl-capture" min="10" max="80" step="5" value="40" oninput="update()">
@@ -144,20 +108,43 @@
         <div class="control-label">RBI Volume Growth/yr <span id="lbl-volgrowth">10%</span></div>
         <input type="range" id="sl-volgrowth" min="0" max="30" step="5" value="10" oninput="update()">
       </div>
-
       <div class="divider"></div>
-
+      <div style="font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:10px;">Renewal Model</div>
       <div class="control-group">
-        <div class="control-label">Renewal Retention Rate <span id="lbl-renewal">15%</span></div>
-        <input type="range" id="sl-renewal" min="5" max="80" step="5" value="15" oninput="update()">
-        <div style="font-size:11px;color:var(--muted);margin-top:6px;">🔴 TBD — depends on DSCR/rental % of RBI's book. 10–20% reflects bridge/construction-heavy mix.</div>
+        <div class="control-label">DSCR / Rental % of Book <span id="lbl-dscr">20%</span></div>
+        <input type="range" id="sl-dscr" min="0" max="100" step="5" value="20" oninput="update()">
+        <div style="font-size:11px;color:var(--muted);margin-top:4px;">🔴 TBD — confirm with RBI. Only DSCR/rental policies renew annually. Bridge, fix &amp; flip, and construction do not.</div>
+      </div>
+      <div class="control-group">
+        <div class="control-label">Renewal Retention (DSCR only) <span id="lbl-retention">70%</span></div>
+        <input type="range" id="sl-retention" min="20" max="100" step="5" value="70" oninput="update()">
+        <div style="font-size:11px;color:var(--muted);margin-top:4px;">Of DSCR borrowers, what % renew with RBI's brokerage each year.</div>
+      </div>
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-top:4px;">
+        <div style="font-size:11px;color:var(--muted);margin-bottom:4px;">Effective renewal rate on total book</div>
+        <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--gold);" id="lbl-renewal-eff">14%</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:2px;">DSCR % × retention. This is what feeds the model.</div>
+      </div>
+      <div class="divider"></div>
+      <div style="font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:10px;">Geography Mix</div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:12px;">High-cost states (FL, CA) price 50–100% above lower-cost states for same loan size.</div>
+      <div class="control-group">
+        <div class="control-label">% Volume in High-Cost States <span id="lbl-geo">50%</span></div>
+        <input type="range" id="sl-geo" min="0" max="100" step="5" value="50" oninput="update()">
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:4px;"><span>All inland</span><span>All coastal</span></div>
+      </div>
+      <div class="control-group">
+        <div class="control-label">High-Cost Premium Multiplier <span id="lbl-geomult">1.7×</span></div>
+        <input type="range" id="sl-geomult" min="1.2" max="2.5" step="0.1" value="1.7" oninput="update()">
+        <div style="font-size:11px;color:var(--muted);margin-top:4px;">How much more expensive high-cost states are vs. base. 1.5–2.0× is typical.</div>
+      </div>
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-top:4px;">
+        <div style="font-size:11px;color:var(--muted);margin-bottom:4px;">Blended premium multiplier</div>
+        <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--gold);" id="lbl-blended">1.35×</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:2px;">Applied to base premium rate automatically</div>
       </div>
     </div>
-
-    <!-- RESULTS -->
     <div class="results">
-
-      <!-- SUMMARY CARDS -->
       <div class="summary-cards">
         <div class="summary-card">
           <div class="sc-label">Per Policy Commission</div>
@@ -184,253 +171,186 @@
           <div class="sc-val gold" id="card-total">$24.4M</div>
           <div class="sc-sub">cumulative revenue</div>
         </div>
-        <div class="summary-card">
-          <div class="sc-label">Breakeven</div>
-          <div class="sc-val" id="card-breakeven">~5/day</div>
-          <div class="sc-sub">policies to cover OpEx</div>
-        </div>
       </div>
-
-      <!-- MAIN TABLE -->
       <div class="table-wrap">
-        <table id="main-table">
-          <thead>
-            <tr>
-              <th>Metric</th>
-              <th>Y1</th>
-              <th>Y2</th>
-              <th>Y3</th>
-              <th>Y4</th>
-              <th>Y5</th>
-            </tr>
-          </thead>
-          <tbody id="table-body"></tbody>
-        </table>
+        <table><thead><tr><th>Metric</th><th>Y1</th><th>Y2</th><th>Y3</th><th>Y4</th><th>Y5</th></tr></thead>
+        <tbody id="table-body"></tbody></table>
       </div>
-
-      <!-- BAR CHART -->
       <div class="table-wrap">
-        <table>
-          <thead><tr><th>Revenue Breakdown</th><th>Y1</th><th>Y2</th><th>Y3</th><th>Y4</th><th>Y5</th></tr></thead>
-          <tbody id="bar-body"></tbody>
-        </table>
+        <table><thead><tr><th>Revenue Breakdown</th><th>Y1</th><th>Y2</th><th>Y3</th><th>Y4</th><th>Y5</th></tr></thead>
+        <tbody id="bar-body"></tbody></table>
       </div>
-
-      <!-- SENSITIVITY MATRIX: Capture Rate vs Avg Loan Size -->
       <div class="matrix-wrap">
         <div class="matrix-title">Sensitivity — Y1 Revenue</div>
-        <div class="matrix-sub">Capture rate (rows) × Avg loan size (columns). All other assumptions held constant at current slider values.</div>
+        <div class="matrix-sub">Capture rate (rows) × Avg loan size (columns). All other assumptions held constant.</div>
         <table class="matrix-table" id="matrix-table"></table>
       </div>
-
-      <!-- SENSITIVITY MATRIX: Renewal Rate vs Loan Volume -->
       <div class="matrix-wrap">
         <div class="matrix-title">Sensitivity — Y5 Revenue</div>
-        <div class="matrix-sub">Renewal retention (rows) × Monthly loan closings (columns). Shows how much the renewal rate matters at scale.</div>
+        <div class="matrix-sub">DSCR/rental % of book (rows) × Monthly loan closings (columns). Shows how much the loan mix matters at scale.</div>
         <table class="matrix-table" id="matrix-table2"></table>
       </div>
-
-      <!-- NOTE -->
-      <div class="note">
-        <strong>Key assumptions:</strong> OpEx estimated at ~$183K/year (broker salary, CSR, compliance, E&O, AMS, licensing). Breakeven calculated against annual OpEx. Renewal commissions assumed at same rate as new policy commissions. <strong>Renewal retention is the biggest unknown</strong> — confirm DSCR/rental % of RBI's book to refine. All revenue figures are gross commission before OpEx.
+      <div class="matrix-wrap">
+        <div class="matrix-title">Sensitivity — Y1 Revenue by Geography Mix</div>
+        <div class="matrix-sub">% volume in high-cost states (rows) × avg loan size (columns). Shows the geography premium impact directly.</div>
+        <table class="matrix-table" id="matrix-table3"></table>
       </div>
-
+      <div class="note">
+        <strong>Key assumptions:</strong> Premium = 1.5–2% of insured value. Commission = 10–15% of premium. <strong>Effective renewal rate = DSCR/rental % × retention among those borrowers.</strong> Only DSCR/rental policies renew annually — bridge, fix &amp; flip, and construction do not. Geography mix applied via blended multiplier. All figures are gross commission revenue.
+      </div>
     </div>
   </div>
 </div>
-
 <script>
-const fmt = (n) => n >= 1e6 ? '$' + (n/1e6).toFixed(1) + 'M' : n >= 1e3 ? '$' + (n/1e3).toFixed(0) + 'K' : '$' + n.toFixed(0);
-const fmtN = (n) => n >= 1e3 ? (n/1e3).toFixed(1) + 'K' : n.toFixed(0);
-const pct = (n) => (n*100).toFixed(0) + '%';
-
-function getVals() {
-  return {
-    loans: +document.getElementById('sl-loans').value,
-    loansize: +document.getElementById('sl-loansize').value * 1000,
-    premium: +document.getElementById('sl-premium').value / 100,
-    commission: +document.getElementById('sl-commission').value / 100,
-    capture: +document.getElementById('sl-capture').value / 100,
-    capgrowth: +document.getElementById('sl-capgrowth').value / 100,
-    volgrowth: +document.getElementById('sl-volgrowth').value / 100,
-    renewal: +document.getElementById('sl-renewal').value / 100,
-  };
+const fmt=n=>n>=1e6?'$'+(n/1e6).toFixed(1)+'M':n>=1e3?'$'+(n/1e3).toFixed(0)+'K':'$'+n.toFixed(0);
+const fmtN=n=>n>=1e3?(n/1e3).toFixed(1)+'K':n.toFixed(0);
+function getVals(){return{
+  loans:+document.getElementById('sl-loans').value,
+  loansize:+document.getElementById('sl-loansize').value*1000,
+  premium:+document.getElementById('sl-premium').value/100,
+  commission:+document.getElementById('sl-commission').value/100,
+  capture:+document.getElementById('sl-capture').value/100,
+  capgrowth:+document.getElementById('sl-capgrowth').value/100,
+  volgrowth:+document.getElementById('sl-volgrowth').value/100,
+  dscr:+document.getElementById('sl-dscr').value/100,
+  retention:+document.getElementById('sl-retention').value/100,
+  geo:+document.getElementById('sl-geo').value/100,
+  geomult:+document.getElementById('sl-geomult').value,
+};}
+function calcYear(loansPerMonth,capture,loansize,premium,commission,renewal,prevPolicies){
+  const annual=loansPerMonth*12,newPolicies=Math.round(annual*capture),perPolicy=loansize*premium*commission;
+  const newRev=newPolicies*perPolicy,renewalPolicies=Math.round(prevPolicies*renewal),renewalRev=renewalPolicies*perPolicy;
+  return{annual,newPolicies,renewalPolicies,newRev,renewalRev,total:newRev+renewalRev,perPolicy};
 }
-
-function calcYear(loansPerMonth, capture, loansize, premium, commission, renewal, prevPolicies) {
-  const annual = loansPerMonth * 12;
-  const newPolicies = Math.round(annual * capture);
-  const perPolicy = loansize * premium * commission;
-  const newRev = newPolicies * perPolicy;
-  const renewalPolicies = Math.round(prevPolicies * renewal);
-  const renewalRev = renewalPolicies * perPolicy;
-  return { annual, newPolicies, renewalPolicies, newRev, renewalRev, total: newRev + renewalRev, perPolicy };
-}
-
-function calcAll(v) {
-  const years = [];
-  let cumulativePolicies = 0;
-  let loans = v.loans;
-  let capture = v.capture;
-  for (let y = 1; y <= 5; y++) {
-    const yr = calcYear(loans, Math.min(capture, 0.80), v.loansize, v.premium, v.commission, v.renewal, cumulativePolicies);
-    years.push(yr);
-    cumulativePolicies += yr.newPolicies;
-    loans *= (1 + v.volgrowth);
-    capture += v.capgrowth;
+function calcAll(v){
+  const years=[];let cumPolicies=0,loans=v.loans,capture=v.capture;
+  for(let y=1;y<=5;y++){
+    const yr=calcYear(loans,Math.min(capture,0.80),v.loansize,v.premium,v.commission,v.renewal,cumPolicies);
+    years.push(yr);cumPolicies+=yr.newPolicies;loans*=(1+v.volgrowth);capture+=v.capgrowth;
   }
   return years;
 }
-
-function update() {
-  const v = getVals();
-
-  // Update labels
-  document.getElementById('lbl-loans').textContent = v.loans;
-  document.getElementById('lbl-loansize').textContent = v.loansize >= 1e6 ? '$' + (v.loansize/1e6).toFixed(1) + 'M' : '$' + (v.loansize/1e3).toFixed(0) + 'K';
-  document.getElementById('lbl-premium').textContent = (v.premium*100).toFixed(1) + '%';
-  document.getElementById('lbl-commission').textContent = (v.commission*100).toFixed(0) + '%';
-  document.getElementById('lbl-capture').textContent = (v.capture*100).toFixed(0) + '%';
-  document.getElementById('lbl-capgrowth').textContent = '+' + (v.capgrowth*100).toFixed(0) + '%/yr';
-  document.getElementById('lbl-volgrowth').textContent = (v.volgrowth*100).toFixed(0) + '%';
-  document.getElementById('lbl-renewal').textContent = (v.renewal*100).toFixed(0) + '%';
-
-  const years = calcAll(v);
-  const perPolicy = v.loansize * v.premium * v.commission;
-  const totalRev = years.reduce((s,y) => s + y.total, 0);
-  const opex = 183000;
-  const breakeven = Math.ceil(opex / perPolicy);
-
-  // Summary cards
-  document.getElementById('card-perpolicy').textContent = fmt(perPolicy);
-  document.getElementById('card-y1policies').textContent = fmtN(years[0].newPolicies);
-  document.getElementById('card-y1sub').textContent = 'of ' + fmtN(years[0].annual) + ' closings';
-  document.getElementById('card-y1rev').textContent = fmt(years[0].total);
-  document.getElementById('card-y5rev').textContent = fmt(years[4].total);
-  document.getElementById('card-y5sub').textContent = fmt(years[4].newRev) + ' new + ' + fmt(years[4].renewalRev) + ' renewal';
-  document.getElementById('card-total').textContent = fmt(totalRev);
-  document.getElementById('card-breakeven').textContent = '~' + Math.ceil(breakeven/12) + '/mo';
-
-  // Main table
-  const rows = [
-    { label: 'RBI Monthly Closings', vals: years.map((y,i) => Math.round(v.loans * Math.pow(1+v.volgrowth, i))), fmt: n => n.toLocaleString() },
-    { label: 'Capture Rate', vals: years.map((_,i) => Math.min(v.capture*100 + i*v.capgrowth*100, 80).toFixed(0) + '%'), fmt: n => n, raw: true },
-    { label: 'New Policies', vals: years.map(y => y.newPolicies), fmt: n => n.toLocaleString() },
-    { label: 'Renewal Policies', vals: years.map(y => y.renewalPolicies), fmt: n => n.toLocaleString() },
-    { label: 'New Policy Revenue', vals: years.map(y => y.newRev), fmt: fmt },
-    { label: 'Renewal Revenue', vals: years.map(y => y.renewalRev), fmt: fmt },
-    { label: '⬛ Total Revenue', vals: years.map(y => y.total), fmt: fmt, net: true },
-    { label: 'OpEx (est.)', vals: [158000, 183000, 183000, 208000, 208000], fmt: fmt },
-    { label: '✅ Net', vals: years.map((y,i) => y.total - [158000,183000,183000,208000,208000][i]), fmt: fmt, net: true },
+function update(){
+  const v=getVals();
+  document.getElementById('lbl-loans').textContent=v.loans;
+  document.getElementById('lbl-loansize').textContent=v.loansize>=1e6?'$'+(v.loansize/1e6).toFixed(1)+'M':'$'+(v.loansize/1e3).toFixed(0)+'K';
+  document.getElementById('lbl-premium').textContent=(v.premium*100).toFixed(1)+'%';
+  document.getElementById('lbl-commission').textContent=(v.commission*100).toFixed(0)+'%';
+  document.getElementById('lbl-capture').textContent=(v.capture*100).toFixed(0)+'%';
+  document.getElementById('lbl-capgrowth').textContent='+'+(v.capgrowth*100).toFixed(0)+'%/yr';
+  document.getElementById('lbl-volgrowth').textContent=(v.volgrowth*100).toFixed(0)+'%';
+  document.getElementById('lbl-dscr').textContent=(v.dscr*100).toFixed(0)+'%';
+  document.getElementById('lbl-retention').textContent=(v.retention*100).toFixed(0)+'%';
+  const renewal = v.dscr * v.retention;
+  document.getElementById('lbl-renewal-eff').textContent=(renewal*100).toFixed(1)+'%';
+  document.getElementById('lbl-geo').textContent=(v.geo*100).toFixed(0)+'%';
+  document.getElementById('lbl-geomult').textContent=v.geomult.toFixed(1)+'×';
+  const blended=v.geo*v.geomult+(1-v.geo)*1.0;
+  document.getElementById('lbl-blended').textContent=blended.toFixed(2)+'×';
+  const effPrem=v.premium*blended;
+  const years=calcAll({...v,renewal,premium:effPrem});
+  const perPolicy=v.loansize*effPrem*v.commission;
+  const totalRev=years.reduce((s,y)=>s+y.total,0);
+  document.getElementById('card-perpolicy').textContent=fmt(perPolicy);
+  document.getElementById('card-y1policies').textContent=fmtN(years[0].newPolicies);
+  document.getElementById('card-y1sub').textContent='of '+fmtN(years[0].annual)+' closings';
+  document.getElementById('card-y1rev').textContent=fmt(years[0].total);
+  document.getElementById('card-y5rev').textContent=fmt(years[4].total);
+  document.getElementById('card-y5sub').textContent=fmt(years[4].newRev)+' new + '+fmt(years[4].renewalRev)+' renewal';
+  document.getElementById('card-total').textContent=fmt(totalRev);
+  const rows=[
+    {label:'RBI Monthly Closings',vals:years.map((y,i)=>Math.round(v.loans*Math.pow(1+v.volgrowth,i))),fmt:n=>n.toLocaleString()},
+    {label:'Capture Rate',vals:years.map((_,i)=>Math.min(v.capture*100+i*v.capgrowth*100,80).toFixed(0)+'%'),raw:true},
+    {label:'New Policies',vals:years.map(y=>y.newPolicies),fmt:n=>n.toLocaleString()},
+    {label:'Renewal Policies',vals:years.map(y=>y.renewalPolicies),fmt:n=>n.toLocaleString()},
+    {label:'New Policy Revenue',vals:years.map(y=>y.newRev),fmt:fmt},
+    {label:'Renewal Revenue',vals:years.map(y=>y.renewalRev),fmt:fmt},
+    {label:'⬛ Total Revenue',vals:years.map(y=>y.total),fmt:fmt,net:true},
   ];
-
-  let tb = '';
-  rows.forEach(r => {
-    const cls = r.net ? ' class="net-row"' : '';
-    tb += `<tr${cls}><td>${r.label}</td>`;
-    r.vals.forEach((val, i) => {
-      const formatted = r.raw ? val : r.fmt(val);
-      const isNeg = !r.raw && typeof val === 'number' && val < 0;
-      tb += `<td style="${isNeg ? 'color:var(--red)' : ''}">${formatted}</td>`;
+  let tb='';
+  rows.forEach(r=>{
+    const cls=r.net?' class="net-row"':'';
+    tb+=`<tr${cls}><td>${r.label}</td>`;
+    r.vals.forEach((val,i)=>{
+      const formatted=r.raw?val:r.fmt(val);
+      const isNeg=!r.raw&&typeof val==='number'&&val<0;
+      tb+=`<td style="${isNeg?'color:var(--red)':''}">${formatted}</td>`;
     });
-    tb += '</tr>';
+    tb+='</tr>';
   });
-  document.getElementById('table-body').innerHTML = tb;
-
-  // Bar rows
-  const maxRev = Math.max(...years.map(y => y.total));
-  let bb = '';
-  years.forEach((y, i) => {
-    const newPct = (y.newRev / maxRev * 100).toFixed(1);
-    const renPct = (y.renewalRev / maxRev * 100).toFixed(1);
-    bb += `<tr>
-      <td style="text-align:left;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--text);">Y${i+1} — ${fmt(y.total)}</td>
-      <td colspan="5" class="bar-cell">
-        <div style="display:flex;gap:4px;">
-          <div style="flex:1">
-            <div style="font-size:10px;color:var(--muted);margin-bottom:3px;">New ${fmt(y.newRev)}</div>
-            <div class="bar-wrap"><div class="bar-fill" style="width:${newPct}%"></div></div>
-          </div>
-          <div style="flex:1">
-            <div style="font-size:10px;color:var(--muted);margin-bottom:3px;">Renewal ${fmt(y.renewalRev)}</div>
-            <div class="bar-wrap"><div class="bar-fill renewal" style="width:${renPct}%"></div></div>
-          </div>
-        </div>
-      </td>
-    </tr>`;
+  document.getElementById('table-body').innerHTML=tb;
+  const maxRev=Math.max(...years.map(y=>y.total));
+  let bb='';
+  years.forEach((y,i)=>{
+    const np=(y.newRev/maxRev*100).toFixed(1),rp=(y.renewalRev/maxRev*100).toFixed(1);
+    bb+=`<tr><td style="text-align:left;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--text);">Y${i+1} — ${fmt(y.total)}</td>
+    <td colspan="5" class="bar-cell"><div style="display:flex;gap:4px;">
+    <div style="flex:1"><div style="font-size:10px;color:var(--muted);margin-bottom:3px;">New ${fmt(y.newRev)}</div><div class="bar-wrap"><div class="bar-fill" style="width:${np}%"></div></div></div>
+    <div style="flex:1"><div style="font-size:10px;color:var(--muted);margin-bottom:3px;">Renewal ${fmt(y.renewalRev)}</div><div class="bar-wrap"><div class="bar-fill renewal" style="width:${rp}%"></div></div></div>
+    </div></td></tr>`;
   });
-  document.getElementById('bar-body').innerHTML = bb;
-
-  // Matrix 1: Y1 Revenue — Capture Rate vs Avg Loan Size
-  const captureRates = [0.20, 0.30, 0.40, 0.50, 0.60, 0.70];
-  const loanSizes = [500000, 750000, 1000000, 1500000, 2000000, 3000000];
-  let m1 = '<thead><tr><th>Capture \\ Loan Size</th>';
-  loanSizes.forEach(ls => { m1 += `<th>${ls >= 1e6 ? '$' + ls/1e6 + 'M' : '$' + ls/1e3 + 'K'}</th>`; });
-  m1 += '</tr></thead><tbody>';
-  captureRates.forEach(cap => {
-    m1 += `<tr><td>${(cap*100).toFixed(0)}% capture</td>`;
-    loanSizes.forEach(ls => {
-      const pp = ls * v.premium * v.commission;
-      const policies = Math.round(v.loans * 12 * cap);
-      const rev = policies * pp;
-      const isActive = Math.abs(cap - v.capture) < 0.06 && Math.abs(ls - v.loansize) < 100000;
-      const cls = isActive ? 'cell-active' : rev < 1e6 ? 'cell-low' : rev < 3e6 ? 'cell-mid' : 'cell-high';
-      m1 += `<td class="${cls}">${fmt(rev)}</td>`;
+  document.getElementById('bar-body').innerHTML=bb;
+  const captureRates=[0.20,0.30,0.40,0.50,0.60,0.70];
+  const loanSizes=[500000,750000,1000000,1500000,2000000,3000000];
+  let m1='<thead><tr><th>Capture \\ Loan Size</th>';
+  loanSizes.forEach(ls=>{m1+=`<th>${ls>=1e6?'$'+ls/1e6+'M':'$'+ls/1e3+'K'}</th>`;});
+  m1+='</tr></thead><tbody>';
+  captureRates.forEach(cap=>{
+    m1+=`<tr><td>${(cap*100).toFixed(0)}% capture</td>`;
+    loanSizes.forEach(ls=>{
+      const pp=ls*effPrem*v.commission,policies=Math.round(v.loans*12*cap),rev=policies*pp;
+      const isActive=Math.abs(cap-v.capture)<0.06&&Math.abs(ls-v.loansize)<100000;
+      const cls=isActive?'cell-active':rev<1e6?'cell-low':rev<3e6?'cell-mid':'cell-high';
+      m1+=`<td class="${cls}">${fmt(rev)}</td>`;
     });
-    m1 += '</tr>';
+    m1+='</tr>';
   });
-  m1 += '</tbody>';
-  document.getElementById('matrix-table').innerHTML = m1;
-
-  // Matrix 2: Y5 Revenue — Renewal Rate vs Monthly Volume
-  const renewalRates = [0.05, 0.10, 0.15, 0.25, 0.40, 0.60, 0.80];
-  const volumes = [150, 200, 300, 400, 500, 600];
-  let m2 = '<thead><tr><th>Renewal \\ Volume</th>';
-  volumes.forEach(vol => { m2 += `<th>${vol}/mo</th>`; });
-  m2 += '</tr></thead><tbody>';
-  renewalRates.forEach(ren => {
-    m2 += `<tr><td>${(ren*100).toFixed(0)}% renewal</td>`;
-    volumes.forEach(vol => {
-      const vv = {...v, loans: vol, renewal: ren};
-      const yrs = calcAll(vv);
-      const rev = yrs[4].total;
-      const isActive = Math.abs(ren - v.renewal) < 0.03 && Math.abs(vol - v.loans) < 26;
-      const cls = isActive ? 'cell-active' : rev < 2e6 ? 'cell-low' : rev < 6e6 ? 'cell-mid' : 'cell-high';
-      m2 += `<td class="${cls}">${fmt(rev)}</td>`;
+  m1+='</tbody>';
+  document.getElementById('matrix-table').innerHTML=m1;
+  const dscrRates=[0.05,0.10,0.15,0.25,0.40,0.60,0.80];
+  const volumes=[150,200,300,400,500,600];
+  let m2='<thead><tr><th>DSCR % \\ Volume</th>';
+  volumes.forEach(vol=>{m2+=`<th>${vol}/mo</th>`;});
+  m2+='</tr></thead><tbody>';
+  dscrRates.forEach(dscr=>{
+    m2+=`<tr><td>${(dscr*100).toFixed(0)}% DSCR</td>`;
+    volumes.forEach(vol=>{
+      const ren=dscr*v.retention;
+      const vv={...v,loans:vol,renewal:ren,premium:effPrem},yrs=calcAll(vv),rev=yrs[4].total;
+      const isActive=Math.abs(dscr-v.dscr)<0.03&&Math.abs(vol-v.loans)<26;
+      const cls=isActive?'cell-active':rev<2e6?'cell-low':rev<6e6?'cell-mid':'cell-high';
+      m2+=`<td class="${cls}">${fmt(rev)}</td>`;
     });
-    m2 += '</tr>';
+    m2+='</tr>';
   });
-  m2 += '</tbody>';
-  document.getElementById('matrix-table2').innerHTML = m2;
-
-  // Update preset buttons — only strip if manually sliding (not from setPreset)
-  if (!window._settingPreset) {
-    document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
-  }
+  m2+='</tbody>';
+  document.getElementById('matrix-table2').innerHTML=m2;
+  const geoMixes=[0,0.20,0.40,0.60,0.80,1.0];
+  let m3='<thead><tr><th>% High-Cost \\ Loan Size</th>';
+  loanSizes.forEach(ls=>{m3+=`<th>${ls>=1e6?'$'+ls/1e6+'M':'$'+ls/1e3+'K'}</th>`;});
+  m3+='</tr></thead><tbody>';
+  geoMixes.forEach(geo=>{
+    m3+=`<tr><td>${(geo*100).toFixed(0)}% high-cost</td>`;
+    loanSizes.forEach(ls=>{
+      const blend=geo*v.geomult+(1-geo)*1.0,ep=v.premium*blend;
+      const pp=ls*ep*v.commission,policies=Math.round(v.loans*12*v.capture),rev=policies*pp;
+      const isActive=Math.abs(geo-v.geo)<0.06&&Math.abs(ls-v.loansize)<100000;
+      const cls=isActive?'cell-active':rev<1e6?'cell-low':rev<4e6?'cell-mid':'cell-high';
+      m3+=`<td class="${cls}">${fmt(rev)}</td>`;
+    });
+    m3+='</tr>';
+  });
+  m3+='</tbody>';
+  document.getElementById('matrix-table3').innerHTML=m3;
+  if(!window._settingPreset){document.querySelectorAll('.preset-btn').forEach(b=>b.classList.remove('active'));}
 }
-
-function setPreset(type) {
-  const presets = {
-    bear: { loans: 150, loansize: 500, premium: 1.5, commission: 10, capture: 20, capgrowth: 3, volgrowth: 5, renewal: 10 },
-    base: { loans: 300, loansize: 1000, premium: 1.5, commission: 12, capture: 40, capgrowth: 5, volgrowth: 10, renewal: 15 },
-    bull: { loans: 400, loansize: 1500, premium: 2.0, commission: 15, capture: 55, capgrowth: 7, volgrowth: 15, renewal: 30 },
-  };
-  const p = presets[type];
-  document.getElementById('sl-loans').value = p.loans;
-  document.getElementById('sl-loansize').value = p.loansize;
-  document.getElementById('sl-premium').value = p.premium;
-  document.getElementById('sl-commission').value = p.commission;
-  document.getElementById('sl-capture').value = p.capture;
-  document.getElementById('sl-capgrowth').value = p.capgrowth;
-  document.getElementById('sl-volgrowth').value = p.volgrowth;
-  document.getElementById('sl-renewal').value = p.renewal;
-  window._settingPreset = true;
-  update();
-  window._settingPreset = false;
-  document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
-  document.querySelector('.preset-btn.' + type).classList.add('active');
+function setPreset(type){
+  const p={bear:{loans:150,loansize:500,premium:1.5,commission:10,capture:20,capgrowth:3,volgrowth:5,dscr:10,retention:60,geo:30,geomult:1.5},base:{loans:300,loansize:1000,premium:1.5,commission:12,capture:40,capgrowth:5,volgrowth:10,dscr:20,retention:70,geo:50,geomult:1.7},bull:{loans:400,loansize:1500,premium:2.0,commission:15,capture:55,capgrowth:7,volgrowth:15,dscr:40,retention:80,geo:70,geomult:2.0}}[type];
+  ['loans','loansize','premium','commission','capture','capgrowth','volgrowth','dscr','retention','geo','geomult'].forEach(k=>{document.getElementById('sl-'+k).value=p[k];});
+  window._settingPreset=true;update();window._settingPreset=false;
+  document.querySelectorAll('.preset-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelector('.preset-btn.'+type).classList.add('active');
 }
-
 update();
 </script>
 </body>
