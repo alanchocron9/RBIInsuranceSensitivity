@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RBI Insurance Brokerage — Revenue Model</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080C14;
+    --surface: #0E1420;
+    --surface2: #141B2B;
+    --border: #1E2A40;
+    --accent: #3B7BFF;
+    --gold: #F5C542;
+    --green: #22C87A;
+    --red: #FF4C4C;
+    --orange: #FF8C42;
+    --text: #E8EDF5;
+    --muted: #6B7A99;
+    --subtle: #2A3550;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; font-size:14px; line-height:1.6; min-height:100vh; padding:32px 24px; }
+  h1 { font-family:'Syne',sans-serif; font-size:22px; font-weight:700; color:var(--text); margin-bottom:4px; }
+  h2 { font-family:'Syne',sans-serif; font-size:13px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:16px; }
+  .subtitle { color:var(--muted); font-size:13px; margin-bottom:32px; }
+
+  .layout { display:grid; grid-template-columns:320px 1fr; gap:24px; max-width:1100px; margin:0 auto; }
+  @media(max-width:800px){ .layout { grid-template-columns:1fr; } }
+
+  /* CONTROLS */
+  .controls { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:24px; height:fit-content; position:sticky; top:24px; }
+  .control-group { margin-bottom:20px; }
+  .control-label { font-family:'Syne',sans-serif; font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.07em; margin-bottom:6px; display:flex; justify-content:space-between; align-items:center; }
+  .control-label span { font-family:'DM Sans',sans-serif; font-size:13px; font-weight:500; color:var(--gold); text-transform:none; letter-spacing:0; }
+  input[type=range] { width:100%; accent-color:var(--accent); cursor:pointer; height:4px; }
+  .divider { height:1px; background:var(--border); margin:20px 0; }
+  .preset-row { display:flex; gap:8px; margin-bottom:20px; }
+  .preset-btn { flex:1; padding:7px 4px; background:var(--surface2); border:1px solid var(--border); border-radius:8px; color:var(--muted); font-family:'Syne',sans-serif; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; cursor:pointer; transition:all 0.15s; text-align:center; }
+  .preset-btn:hover { border-color:var(--accent); color:var(--accent); }
+  .preset-btn.active { background:rgba(59,123,255,0.12); border-color:var(--accent); color:var(--accent); }
+  .preset-btn.bear { }
+  .preset-btn.base { }
+  .preset-btn.bull { }
+
+  /* RESULTS */
+  .results { display:flex; flex-direction:column; gap:20px; }
+
+  /* SUMMARY CARDS */
+  .summary-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+  @media(max-width:600px){ .summary-cards { grid-template-columns:1fr 1fr; } }
+  .summary-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:16px; }
+  .summary-card.highlight { border-color:var(--accent); background:rgba(59,123,255,0.06); }
+  .summary-card.gold { border-color:var(--gold); background:rgba(245,197,66,0.06); }
+  .sc-label { font-family:'Syne',sans-serif; font-size:10px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.07em; margin-bottom:6px; }
+  .sc-val { font-family:'Syne',sans-serif; font-size:20px; font-weight:700; color:var(--text); }
+  .sc-val.green { color:var(--green); }
+  .sc-val.gold { color:var(--gold); }
+  .sc-sub { font-size:11px; color:var(--muted); margin-top:3px; }
+
+  /* MAIN TABLE */
+  .table-wrap { background:var(--surface); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+  table { width:100%; border-collapse:collapse; }
+  thead tr { background:var(--surface2); }
+  th { font-family:'Syne',sans-serif; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.07em; color:var(--muted); padding:12px 16px; text-align:right; border-bottom:1px solid var(--border); }
+  th:first-child { text-align:left; }
+  td { padding:12px 16px; text-align:right; border-bottom:1px solid rgba(30,42,64,0.5); font-size:13px; color:var(--muted); }
+  td:first-child { text-align:left; font-family:'Syne',sans-serif; font-size:12px; font-weight:700; color:var(--text); }
+  tr:last-child td { border-bottom:none; }
+  tr.net-row td { color:var(--text); font-weight:500; border-top:1px solid var(--border); }
+  tr.net-row td:first-child { color:var(--green); }
+  .bar-cell { padding:10px 16px; }
+  .bar-wrap { background:var(--surface2); border-radius:4px; height:8px; overflow:hidden; }
+  .bar-fill { height:100%; border-radius:4px; background:linear-gradient(90deg, var(--accent), var(--green)); transition:width 0.4s ease; }
+  .bar-fill.renewal { background:var(--gold); }
+
+  /* SENSITIVITY MATRIX */
+  .matrix-wrap { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:20px; }
+  .matrix-title { font-family:'Syne',sans-serif; font-size:12px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.07em; margin-bottom:4px; }
+  .matrix-sub { font-size:12px; color:var(--muted); margin-bottom:16px; }
+  .matrix-table { width:100%; border-collapse:collapse; font-size:12px; }
+  .matrix-table th { font-family:'Syne',sans-serif; font-size:10px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em; padding:8px 10px; text-align:center; border-bottom:1px solid var(--border); }
+  .matrix-table th:first-child { text-align:left; }
+  .matrix-table td { padding:8px 10px; text-align:center; border-bottom:1px solid rgba(30,42,64,0.4); }
+  .matrix-table td:first-child { text-align:left; font-family:'Syne',sans-serif; font-size:11px; font-weight:700; color:var(--muted); }
+  .matrix-table tr:last-child td { border-bottom:none; }
+  .cell-low { color:#FF6B6B; }
+  .cell-mid { color:var(--gold); }
+  .cell-high { color:var(--green); }
+  .cell-active { background:rgba(59,123,255,0.15); border-radius:6px; color:var(--accent) !important; font-weight:700; }
+
+  /* ASSUMPTIONS NOTE */
+  .note { background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--muted); border-radius:0 10px 10px 0; padding:14px 16px; font-size:12px; color:var(--muted); line-height:1.7; }
+  .note strong { color:var(--text); }
+</style>
+</head>
+<body>
+
+<div style="max-width:1100px;margin:0 auto;">
+  <h1>RBI Insurance Brokerage — Revenue Model</h1>
+  <p class="subtitle">Adjust assumptions below. All figures are commission revenue only, before OpEx.</p>
+
+  <div class="layout">
+
+    <!-- CONTROLS -->
+    <div class="controls">
+      <h2>Assumptions</h2>
+
+      <div class="preset-row">
+        <div class="preset-btn bear" onclick="setPreset('bear')">Bear</div>
+        <div class="preset-btn base active" onclick="setPreset('base')">Base</div>
+        <div class="preset-btn bull" onclick="setPreset('bull')">Bull</div>
+      </div>
+
+      <div class="control-group">
+        <div class="control-label">Monthly Loan Closings <span id="lbl-loans">300</span></div>
+        <input type="range" id="sl-loans" min="100" max="600" step="25" value="300" oninput="update()">
+      </div>
+      <div class="control-group">
+        <div class="control-label">Avg Loan Size <span id="lbl-loansize">$1.0M</span></div>
+        <input type="range" id="sl-loansize" min="500" max="3000" step="100" value="1000" oninput="update()">
+      </div>
+      <div class="control-group">
+        <div class="control-label">Premium Rate (% of loan) <span id="lbl-premium">1.5%</span></div>
+        <input type="range" id="sl-premium" min="1.0" max="2.5" step="0.1" value="1.5" oninput="update()">
+      </div>
+      <div class="control-group">
+        <div class="control-label">Commission Rate <span id="lbl-commission">12%</span></div>
+        <input type="range" id="sl-commission" min="8" max="18" step="0.5" value="12" oninput="update()">
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="control-group">
+        <div class="control-label">Y1 Capture Rate <span id="lbl-capture">40%</span></div>
+        <input type="range" id="sl-capture" min="10" max="80" step="5" value="40" oninput="update()">
+      </div>
+      <div class="control-group">
+        <div class="control-label">Annual Capture Growth <span id="lbl-capgrowth">+5%/yr</span></div>
+        <input type="range" id="sl-capgrowth" min="0" max="15" step="1" value="5" oninput="update()">
+      </div>
+      <div class="control-group">
+        <div class="control-label">RBI Volume Growth/yr <span id="lbl-volgrowth">10%</span></div>
+        <input type="range" id="sl-volgrowth" min="0" max="30" step="5" value="10" oninput="update()">
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="control-group">
+        <div class="control-label">Renewal Retention Rate <span id="lbl-renewal">15%</span></div>
+        <input type="range" id="sl-renewal" min="5" max="80" step="5" value="15" oninput="update()">
+        <div style="font-size:11px;color:var(--muted);margin-top:6px;">🔴 TBD — depends on DSCR/rental % of RBI's book. 10–20% reflects bridge/construction-heavy mix.</div>
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="results">
+
+      <!-- SUMMARY CARDS -->
+      <div class="summary-cards">
+        <div class="summary-card">
+          <div class="sc-label">Per Policy Commission</div>
+          <div class="sc-val green" id="card-perpolicy">$1,800</div>
+          <div class="sc-sub">at binding</div>
+        </div>
+        <div class="summary-card">
+          <div class="sc-label">Y1 Policies Placed</div>
+          <div class="sc-val" id="card-y1policies">1,440</div>
+          <div class="sc-sub" id="card-y1sub">of 3,600 closings</div>
+        </div>
+        <div class="summary-card highlight">
+          <div class="sc-label">Y1 Revenue</div>
+          <div class="sc-val green" id="card-y1rev">$2.6M</div>
+          <div class="sc-sub">new policies only</div>
+        </div>
+        <div class="summary-card">
+          <div class="sc-label">Y5 Revenue</div>
+          <div class="sc-val" id="card-y5rev">$7.4M</div>
+          <div class="sc-sub" id="card-y5sub">new + renewals</div>
+        </div>
+        <div class="summary-card gold">
+          <div class="sc-label">5-Year Total</div>
+          <div class="sc-val gold" id="card-total">$24.4M</div>
+          <div class="sc-sub">cumulative revenue</div>
+        </div>
+        <div class="summary-card">
+          <div class="sc-label">Breakeven</div>
+          <div class="sc-val" id="card-breakeven">~5/day</div>
+          <div class="sc-sub">policies to cover OpEx</div>
+        </div>
+      </div>
+
+      <!-- MAIN TABLE -->
+      <div class="table-wrap">
+        <table id="main-table">
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th>Y1</th>
+              <th>Y2</th>
+              <th>Y3</th>
+              <th>Y4</th>
+              <th>Y5</th>
+            </tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+        </table>
+      </div>
+
+      <!-- BAR CHART -->
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Revenue Breakdown</th><th>Y1</th><th>Y2</th><th>Y3</th><th>Y4</th><th>Y5</th></tr></thead>
+          <tbody id="bar-body"></tbody>
+        </table>
+      </div>
+
+      <!-- SENSITIVITY MATRIX: Capture Rate vs Avg Loan Size -->
+      <div class="matrix-wrap">
+        <div class="matrix-title">Sensitivity — Y1 Revenue</div>
+        <div class="matrix-sub">Capture rate (rows) × Avg loan size (columns). All other assumptions held constant at current slider values.</div>
+        <table class="matrix-table" id="matrix-table"></table>
+      </div>
+
+      <!-- SENSITIVITY MATRIX: Renewal Rate vs Loan Volume -->
+      <div class="matrix-wrap">
+        <div class="matrix-title">Sensitivity — Y5 Revenue</div>
+        <div class="matrix-sub">Renewal retention (rows) × Monthly loan closings (columns). Shows how much the renewal rate matters at scale.</div>
+        <table class="matrix-table" id="matrix-table2"></table>
+      </div>
+
+      <!-- NOTE -->
+      <div class="note">
+        <strong>Key assumptions:</strong> OpEx estimated at ~$183K/year (broker salary, CSR, compliance, E&O, AMS, licensing). Breakeven calculated against annual OpEx. Renewal commissions assumed at same rate as new policy commissions. <strong>Renewal retention is the biggest unknown</strong> — confirm DSCR/rental % of RBI's book to refine. All revenue figures are gross commission before OpEx.
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+const fmt = (n) => n >= 1e6 ? '$' + (n/1e6).toFixed(1) + 'M' : n >= 1e3 ? '$' + (n/1e3).toFixed(0) + 'K' : '$' + n.toFixed(0);
+const fmtN = (n) => n >= 1e3 ? (n/1e3).toFixed(1) + 'K' : n.toFixed(0);
+const pct = (n) => (n*100).toFixed(0) + '%';
+
+function getVals() {
+  return {
+    loans: +document.getElementById('sl-loans').value,
+    loansize: +document.getElementById('sl-loansize').value * 1000,
+    premium: +document.getElementById('sl-premium').value / 100,
+    commission: +document.getElementById('sl-commission').value / 100,
+    capture: +document.getElementById('sl-capture').value / 100,
+    capgrowth: +document.getElementById('sl-capgrowth').value / 100,
+    volgrowth: +document.getElementById('sl-volgrowth').value / 100,
+    renewal: +document.getElementById('sl-renewal').value / 100,
+  };
+}
+
+function calcYear(loansPerMonth, capture, loansize, premium, commission, renewal, prevPolicies) {
+  const annual = loansPerMonth * 12;
+  const newPolicies = Math.round(annual * capture);
+  const perPolicy = loansize * premium * commission;
+  const newRev = newPolicies * perPolicy;
+  const renewalPolicies = Math.round(prevPolicies * renewal);
+  const renewalRev = renewalPolicies * perPolicy;
+  return { annual, newPolicies, renewalPolicies, newRev, renewalRev, total: newRev + renewalRev, perPolicy };
+}
+
+function calcAll(v) {
+  const years = [];
+  let cumulativePolicies = 0;
+  let loans = v.loans;
+  let capture = v.capture;
+  for (let y = 1; y <= 5; y++) {
+    const yr = calcYear(loans, Math.min(capture, 0.80), v.loansize, v.premium, v.commission, v.renewal, cumulativePolicies);
+    years.push(yr);
+    cumulativePolicies += yr.newPolicies;
+    loans *= (1 + v.volgrowth);
+    capture += v.capgrowth;
+  }
+  return years;
+}
+
+function update() {
+  const v = getVals();
+
+  // Update labels
+  document.getElementById('lbl-loans').textContent = v.loans;
+  document.getElementById('lbl-loansize').textContent = v.loansize >= 1e6 ? '$' + (v.loansize/1e6).toFixed(1) + 'M' : '$' + (v.loansize/1e3).toFixed(0) + 'K';
+  document.getElementById('lbl-premium').textContent = (v.premium*100).toFixed(1) + '%';
+  document.getElementById('lbl-commission').textContent = (v.commission*100).toFixed(0) + '%';
+  document.getElementById('lbl-capture').textContent = (v.capture*100).toFixed(0) + '%';
+  document.getElementById('lbl-capgrowth').textContent = '+' + (v.capgrowth*100).toFixed(0) + '%/yr';
+  document.getElementById('lbl-volgrowth').textContent = (v.volgrowth*100).toFixed(0) + '%';
+  document.getElementById('lbl-renewal').textContent = (v.renewal*100).toFixed(0) + '%';
+
+  const years = calcAll(v);
+  const perPolicy = v.loansize * v.premium * v.commission;
+  const totalRev = years.reduce((s,y) => s + y.total, 0);
+  const opex = 183000;
+  const breakeven = Math.ceil(opex / perPolicy);
+
+  // Summary cards
+  document.getElementById('card-perpolicy').textContent = fmt(perPolicy);
+  document.getElementById('card-y1policies').textContent = fmtN(years[0].newPolicies);
+  document.getElementById('card-y1sub').textContent = 'of ' + fmtN(years[0].annual) + ' closings';
+  document.getElementById('card-y1rev').textContent = fmt(years[0].total);
+  document.getElementById('card-y5rev').textContent = fmt(years[4].total);
+  document.getElementById('card-y5sub').textContent = fmt(years[4].newRev) + ' new + ' + fmt(years[4].renewalRev) + ' renewal';
+  document.getElementById('card-total').textContent = fmt(totalRev);
+  document.getElementById('card-breakeven').textContent = '~' + Math.ceil(breakeven/12) + '/mo';
+
+  // Main table
+  const rows = [
+    { label: 'RBI Monthly Closings', vals: years.map((y,i) => Math.round(v.loans * Math.pow(1+v.volgrowth, i))), fmt: n => n.toLocaleString() },
+    { label: 'Capture Rate', vals: years.map((_,i) => Math.min(v.capture*100 + i*v.capgrowth*100, 80).toFixed(0) + '%'), fmt: n => n, raw: true },
+    { label: 'New Policies', vals: years.map(y => y.newPolicies), fmt: n => n.toLocaleString() },
+    { label: 'Renewal Policies', vals: years.map(y => y.renewalPolicies), fmt: n => n.toLocaleString() },
+    { label: 'New Policy Revenue', vals: years.map(y => y.newRev), fmt: fmt },
+    { label: 'Renewal Revenue', vals: years.map(y => y.renewalRev), fmt: fmt },
+    { label: '⬛ Total Revenue', vals: years.map(y => y.total), fmt: fmt, net: true },
+    { label: 'OpEx (est.)', vals: [158000, 183000, 183000, 208000, 208000], fmt: fmt },
+    { label: '✅ Net', vals: years.map((y,i) => y.total - [158000,183000,183000,208000,208000][i]), fmt: fmt, net: true },
+  ];
+
+  let tb = '';
+  rows.forEach(r => {
+    const cls = r.net ? ' class="net-row"' : '';
+    tb += `<tr${cls}><td>${r.label}</td>`;
+    r.vals.forEach((val, i) => {
+      const formatted = r.raw ? val : r.fmt(val);
+      const isNeg = !r.raw && typeof val === 'number' && val < 0;
+      tb += `<td style="${isNeg ? 'color:var(--red)' : ''}">${formatted}</td>`;
+    });
+    tb += '</tr>';
+  });
+  document.getElementById('table-body').innerHTML = tb;
+
+  // Bar rows
+  const maxRev = Math.max(...years.map(y => y.total));
+  let bb = '';
+  years.forEach((y, i) => {
+    const newPct = (y.newRev / maxRev * 100).toFixed(1);
+    const renPct = (y.renewalRev / maxRev * 100).toFixed(1);
+    bb += `<tr>
+      <td style="text-align:left;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--text);">Y${i+1} — ${fmt(y.total)}</td>
+      <td colspan="5" class="bar-cell">
+        <div style="display:flex;gap:4px;">
+          <div style="flex:1">
+            <div style="font-size:10px;color:var(--muted);margin-bottom:3px;">New ${fmt(y.newRev)}</div>
+            <div class="bar-wrap"><div class="bar-fill" style="width:${newPct}%"></div></div>
+          </div>
+          <div style="flex:1">
+            <div style="font-size:10px;color:var(--muted);margin-bottom:3px;">Renewal ${fmt(y.renewalRev)}</div>
+            <div class="bar-wrap"><div class="bar-fill renewal" style="width:${renPct}%"></div></div>
+          </div>
+        </div>
+      </td>
+    </tr>`;
+  });
+  document.getElementById('bar-body').innerHTML = bb;
+
+  // Matrix 1: Y1 Revenue — Capture Rate vs Avg Loan Size
+  const captureRates = [0.20, 0.30, 0.40, 0.50, 0.60, 0.70];
+  const loanSizes = [500000, 750000, 1000000, 1500000, 2000000, 3000000];
+  let m1 = '<thead><tr><th>Capture \\ Loan Size</th>';
+  loanSizes.forEach(ls => { m1 += `<th>${ls >= 1e6 ? '$' + ls/1e6 + 'M' : '$' + ls/1e3 + 'K'}</th>`; });
+  m1 += '</tr></thead><tbody>';
+  captureRates.forEach(cap => {
+    m1 += `<tr><td>${(cap*100).toFixed(0)}% capture</td>`;
+    loanSizes.forEach(ls => {
+      const pp = ls * v.premium * v.commission;
+      const policies = Math.round(v.loans * 12 * cap);
+      const rev = policies * pp;
+      const isActive = Math.abs(cap - v.capture) < 0.06 && Math.abs(ls - v.loansize) < 100000;
+      const cls = isActive ? 'cell-active' : rev < 1e6 ? 'cell-low' : rev < 3e6 ? 'cell-mid' : 'cell-high';
+      m1 += `<td class="${cls}">${fmt(rev)}</td>`;
+    });
+    m1 += '</tr>';
+  });
+  m1 += '</tbody>';
+  document.getElementById('matrix-table').innerHTML = m1;
+
+  // Matrix 2: Y5 Revenue — Renewal Rate vs Monthly Volume
+  const renewalRates = [0.05, 0.10, 0.15, 0.25, 0.40, 0.60, 0.80];
+  const volumes = [150, 200, 300, 400, 500, 600];
+  let m2 = '<thead><tr><th>Renewal \\ Volume</th>';
+  volumes.forEach(vol => { m2 += `<th>${vol}/mo</th>`; });
+  m2 += '</tr></thead><tbody>';
+  renewalRates.forEach(ren => {
+    m2 += `<tr><td>${(ren*100).toFixed(0)}% renewal</td>`;
+    volumes.forEach(vol => {
+      const vv = {...v, loans: vol, renewal: ren};
+      const yrs = calcAll(vv);
+      const rev = yrs[4].total;
+      const isActive = Math.abs(ren - v.renewal) < 0.03 && Math.abs(vol - v.loans) < 26;
+      const cls = isActive ? 'cell-active' : rev < 2e6 ? 'cell-low' : rev < 6e6 ? 'cell-mid' : 'cell-high';
+      m2 += `<td class="${cls}">${fmt(rev)}</td>`;
+    });
+    m2 += '</tr>';
+  });
+  m2 += '</tbody>';
+  document.getElementById('matrix-table2').innerHTML = m2;
+
+  // Update preset buttons — only strip if manually sliding (not from setPreset)
+  if (!window._settingPreset) {
+    document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+  }
+}
+
+function setPreset(type) {
+  const presets = {
+    bear: { loans: 150, loansize: 500, premium: 1.5, commission: 10, capture: 20, capgrowth: 3, volgrowth: 5, renewal: 10 },
+    base: { loans: 300, loansize: 1000, premium: 1.5, commission: 12, capture: 40, capgrowth: 5, volgrowth: 10, renewal: 15 },
+    bull: { loans: 400, loansize: 1500, premium: 2.0, commission: 15, capture: 55, capgrowth: 7, volgrowth: 15, renewal: 30 },
+  };
+  const p = presets[type];
+  document.getElementById('sl-loans').value = p.loans;
+  document.getElementById('sl-loansize').value = p.loansize;
+  document.getElementById('sl-premium').value = p.premium;
+  document.getElementById('sl-commission').value = p.commission;
+  document.getElementById('sl-capture').value = p.capture;
+  document.getElementById('sl-capgrowth').value = p.capgrowth;
+  document.getElementById('sl-volgrowth').value = p.volgrowth;
+  document.getElementById('sl-renewal').value = p.renewal;
+  window._settingPreset = true;
+  update();
+  window._settingPreset = false;
+  document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.preset-btn.' + type).classList.add('active');
+}
+
+update();
+</script>
+</body>
+</html>
