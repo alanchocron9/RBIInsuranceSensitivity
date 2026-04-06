@@ -1,34 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
+<!-- saved from url=(0065)file:///C:/Users/alanc/Downloads/RBI_Sensitivity_Analysis_24.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RBI Insurance Brokerage — Revenue Model</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link href="./RBI Insurance Brokerage — Revenue Model_files/css2" rel="stylesheet">
 <style>
-  :root {
-    --bg:#080C14;--surface:#0E1420;--surface2:#141B2B;--border:#1E2A40;
-    --accent:#3B7BFF;--gold:#F5C542;--green:#22C87A;--red:#FF4C4C;
-    --text:#E8EDF5;--muted:#6B7A99;
-  }
+  :root{--bg:#080C14;--surface:#0E1420;--surface2:#141B2B;--border:#1E2A40;--accent:#3B7BFF;--gold:#F5C542;--green:#22C87A;--red:#FF4C4C;--text:#E8EDF5;--muted:#6B7A99;}
   *{margin:0;padding:0;box-sizing:border-box;}
   body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.6;min-height:100vh;padding:32px 24px;}
   h1{font-family:'Syne',sans-serif;font-size:22px;font-weight:700;color:var(--text);margin-bottom:4px;}
   h2{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:16px;}
   .subtitle{color:var(--muted);font-size:13px;margin-bottom:32px;}
-  .layout{display:grid;grid-template-columns:320px 1fr;gap:24px;max-width:1100px;margin:0 auto;}
-  @media(max-width:800px){.layout{grid-template-columns:1fr;}}
-  .controls{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px;height:fit-content;position:sticky;top:24px;}
-  .control-group{margin-bottom:20px;}
+  .layout{display:grid;grid-template-columns:340px 1fr;gap:24px;max-width:1200px;margin:0 auto;}
+  @media(max-width:860px){.layout{grid-template-columns:1fr;}}
+  .controls{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px;height:fit-content;}
+  .control-group{margin-bottom:18px;}
   .control-label{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;}
   .control-label span{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--gold);text-transform:none;letter-spacing:0;}
   input[type=range]{width:100%;accent-color:var(--accent);cursor:pointer;height:4px;}
-  .divider{height:1px;background:var(--border);margin:20px 0;}
-  .preset-row{display:flex;gap:8px;margin-bottom:20px;}
+  .divider{height:1px;background:var(--border);margin:18px 0;}
+  .preset-row{display:flex;gap:8px;margin-bottom:18px;}
   .preset-btn{flex:1;padding:7px 4px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--muted);font-family:'Syne',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;cursor:pointer;transition:all 0.15s;text-align:center;}
   .preset-btn:hover{border-color:var(--accent);color:var(--accent);}
   .preset-btn.active{background:rgba(59,123,255,0.12);border-color:var(--accent);color:var(--accent);}
   .results{display:flex;flex-direction:column;gap:20px;}
+
+  .tab-nav{display:flex;gap:0;margin-bottom:24px;border-bottom:2px solid var(--border);}
+  .tab-btn{padding:10px 24px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;
+    color:var(--muted);background:transparent;border:none;cursor:pointer;
+    border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .15s;
+    text-transform:uppercase;letter-spacing:0.08em;}
+  .tab-btn:hover{color:var(--text);}
+  .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
+  .tab-panel{display:none;}.tab-panel.active{display:block;}
+
   .summary-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
   @media(max-width:600px){.summary-cards{grid-template-columns:1fr 1fr;}}
   .summary-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;}
@@ -65,293 +71,954 @@
   .cell-active{background:rgba(59,123,255,0.15);border-radius:6px;color:var(--accent)!important;font-weight:700;}
   .note{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--muted);border-radius:0 10px 10px 0;padding:14px 16px;font-size:12px;color:var(--muted);line-height:1.7;}
   .note strong{color:var(--text);}
+  .year-btn{flex:1;padding:8px 4px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--muted);font-family:'Syne',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all 0.15s;text-align:center;}
+  .year-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .year-btn.active{background:rgba(59,123,255,0.12);border-color:var(--accent);color:var(--accent);}
+  .year-disc-btn{flex:1;padding:6px 4px;background:var(--surface);border:1px solid var(--border);border-radius:6px;color:var(--muted);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;cursor:pointer;transition:all 0.15s;text-align:center;}
+  .year-disc-btn:hover{border-color:var(--gold);color:var(--gold);}
+  .year-disc-btn.active{background:rgba(245,197,66,0.1);border-color:var(--gold);color:var(--gold);}
+  .rate-cell{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:6px 4px;text-align:center;}
+  .rate-yr{font-size:10px;color:var(--muted);margin-bottom:2px;}
+  .rate-val{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--green);}
+  /* LOAN MIX */
+  .mix-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+  .mix-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+  .mix-label{font-size:11px;color:var(--muted);flex:1;}
+  .mix-pct{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--gold);min-width:32px;text-align:right;}
+  .mix-bar-outer{flex:2;background:var(--surface2);border-radius:4px;height:6px;overflow:hidden;}
+  .mix-bar-inner{height:100%;border-radius:4px;transition:width 0.3s;}
+  .mix-total{display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);}
+  .mix-total-label{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;}
+  .mix-total-val{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;}
+  .blended-box{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-top:10px;}
+  .blended-box-label{font-size:11px;color:var(--muted);margin-bottom:4px;}
+  .blended-box-val{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--gold);}
+  .blended-box-sub{font-size:10px;color:var(--muted);margin-top:2px;}
 </style>
 </head>
 <body>
-<div style="max-width:1100px;margin:0 auto;">
+<div style="max-width:1200px;margin:0 auto;">
   <h1>RBI Insurance Brokerage — Revenue Model</h1>
   <p class="subtitle">Adjust assumptions below. All figures are commission revenue only, before OpEx.</p>
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab('model',this)">Revenue Model</button>
+    <button class="tab-btn" onclick="switchTab('pl',this)">5-Year P&amp;L</button>
+  </div>
+  <div id="tab-model" class="tab-panel active">
   <div class="layout">
     <div class="controls">
       <h2>Assumptions</h2>
       <div class="preset-row">
-        <div class="preset-btn bear" onclick="setPreset('bear')">Bear</div>
-        <div class="preset-btn base active" onclick="setPreset('base')">Base</div>
-        <div class="preset-btn bull" onclick="setPreset('bull')">Bull</div>
+        <div class="preset-btn bear" onclick="setPreset(&#39;bear&#39;)">Bear</div>
+        <div class="preset-btn base active" onclick="setPreset(&#39;base&#39;)">Base</div>
+        <div class="preset-btn bull" onclick="setPreset(&#39;bull&#39;)">Bull</div>
+      </div>
+
+      <div class="control-group">
+        <div class="control-label">Monthly Loan Closings <span id="lbl-loans">160</span></div>
+        <input type="range" id="sl-loans" min="100" max="600" step="10" value="160" oninput="debouncedUpdate()">
       </div>
       <div class="control-group">
-        <div class="control-label">Monthly Loan Closings <span id="lbl-loans">300</span></div>
-        <input type="range" id="sl-loans" min="100" max="600" step="25" value="300" oninput="update()">
+        <div class="control-label">Avg Loan Size <span id="lbl-loansize">$550K</span></div>
+        <input type="range" id="sl-loansize" min="500" max="3000" step="50" value="550" oninput="debouncedUpdate()">
       </div>
       <div class="control-group">
-        <div class="control-label">Avg Loan Size <span id="lbl-loansize">$1.0M</span></div>
-        <input type="range" id="sl-loansize" min="500" max="3000" step="100" value="1000" oninput="update()">
+        <div class="control-label">Avg LTV (Loan-to-Value) <span id="lbl-ltv">70%</span></div>
+        <input type="range" id="sl-ltv" min="50" max="90" step="5" value="70" oninput="debouncedUpdate()">
+        <div style="font-size:11px;color:var(--muted);margin-top:4px;">Hard money loans typically 60–75% LTV. Premium is calculated on property value, not loan amount.</div>
+      </div>
+      <div class="blended-box" style="margin-bottom:18px;">
+        <div class="blended-box-label">Implied avg property value</div>
+        <div class="blended-box-val" id="lbl-propval">$786K</div>
       </div>
       <div class="control-group">
-        <div class="control-label">Premium Rate (% of loan) <span id="lbl-premium">1.5%</span></div>
-        <input type="range" id="sl-premium" min="1.0" max="2.5" step="0.1" value="1.5" oninput="update()">
+        <div class="control-label">Base Commission Rate <span id="lbl-commission">12%</span></div>
+        <input type="range" id="sl-commission" min="8" max="18" step="0.5" value="12" oninput="debouncedUpdate()">
       </div>
-      <div class="control-group">
-        <div class="control-label">Commission Rate <span id="lbl-commission">12%</span></div>
-        <input type="range" id="sl-commission" min="8" max="18" step="0.5" value="12" oninput="update()">
+
+      <!-- WHOLESALE DISCOUNT -->
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:18px;">
+        <div style="font-family:&#39;Syne&#39;,sans-serif;font-size:11px;font-weight:700;color:var(--text);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:4px;">Wholesale Broker Discount</div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:12px;">Set the discount and which years it applies. 0% = no discount, flat rate all years.</div>
+
+        <div class="control-group" style="margin-bottom:14px;">
+          <div class="control-label">Wholesale Discount <span id="lbl-discount">2.0%</span></div>
+          <input type="range" id="sl-discount" min="0" max="6" step="0.5" value="2" oninput="debouncedUpdate()">
+          <div style="font-size:11px;color:var(--muted);margin-top:4px;">Wholesale brokers typically take 3–5% off the carrier commission. Drag to apply.</div>
+        </div>
+
+        <div style="font-family:&#39;Syne&#39;,sans-serif;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px;">Apply Discount To:</div>
+        <div style="display:flex;gap:6px;margin-bottom:12px;" id="year-discount-toggles">
+          <div class="year-disc-btn active" onclick="toggleDiscountYear(1)" id="disc-y1">Y1</div>
+          <div class="year-disc-btn" onclick="toggleDiscountYear(2)" id="disc-y2">Y2</div>
+          <div class="year-disc-btn" onclick="toggleDiscountYear(3)" id="disc-y3">Y3</div>
+          <div class="year-disc-btn" onclick="toggleDiscountYear(4)" id="disc-y4">Y4</div>
+          <div class="year-disc-btn" onclick="toggleDiscountYear(5)" id="disc-y5">Y5</div>
+        </div>
+
+        <!-- Live rate display per year -->
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:4px;" id="rate-per-year">
+          <div class="rate-cell"><div class="rate-yr">Y1</div><div class="rate-val" id="rate-y1" style="color: var(--gold);">10.0%</div></div>
+          <div class="rate-cell"><div class="rate-yr">Y2</div><div class="rate-val" id="rate-y2" style="color: var(--green);">12.0%</div></div>
+          <div class="rate-cell"><div class="rate-yr">Y3</div><div class="rate-val" id="rate-y3" style="color: var(--green);">12.0%</div></div>
+          <div class="rate-cell"><div class="rate-yr">Y4</div><div class="rate-val" id="rate-y4" style="color: var(--green);">12.0%</div></div>
+          <div class="rate-cell"><div class="rate-yr">Y5</div><div class="rate-val" id="rate-y5" style="color: var(--green);">12.0%</div></div>
+        </div>
       </div>
+
       <div class="divider"></div>
+
+      <!-- LOAN MIX -->
+      <div style="font-family:&#39;Syne&#39;,sans-serif;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:4px;">Loan Type Mix</div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:12px;">Adjusts automatically to 100%. Each type has a different premium rate baked in.</div>
+
+      <div class="mix-row">
+        <div class="mix-dot" style="background:#3B7BFF;"></div>
+        <div class="mix-label">Fix &amp; Flip</div>
+        <input type="range" id="sl-fixflip" min="0" max="100" step="5" value="30" oninput="normalizeMix(&#39;fixflip&#39;)" style="flex:2;">
+        <div class="mix-pct" id="lbl-fixflip">30%</div>
+      </div>
+      <div class="mix-row">
+        <div class="mix-dot" style="background:#22C87A;"></div>
+        <div class="mix-label">New Construction</div>
+        <input type="range" id="sl-newcon" min="0" max="100" step="5" value="30" oninput="normalizeMix(&#39;newcon&#39;)" style="flex:2;">
+        <div class="mix-pct" id="lbl-newcon">40%</div>
+      </div>
+      <div class="mix-row">
+        <div class="mix-dot" style="background:#F5C542;"></div>
+        <div class="mix-label">Bridge</div>
+        <input type="range" id="sl-bridge" min="0" max="100" step="5" value="20" oninput="normalizeMix(&#39;bridge&#39;)" style="flex:2;">
+        <div class="mix-pct" id="lbl-bridge">10%</div>
+      </div>
+      <div class="mix-row">
+        <div class="mix-dot" style="background:#A78BFA;"></div>
+        <div class="mix-label">DSCR / Rental (incl. STR)</div>
+        <input type="range" id="sl-dscrltr" min="0" max="100" step="5" value="15" oninput="normalizeMix(&#39;dscrltr&#39;)" style="flex:2;">
+        <div class="mix-pct" id="lbl-dscrltr">20%</div>
+      </div>
+
+      <div class="mix-total">
+        <div class="mix-total-label">Total</div>
+        <div class="mix-total-val" id="lbl-mixtotal" style="color:var(--green);">100%</div>
+      </div>
+
+      <div class="blended-box">
+        <div class="blended-box-label">Blended premium rate (% of property value)</div>
+        <div class="blended-box-val" id="lbl-blended-premium">2.03%</div>
+        <div class="blended-box-sub">Weighted avg of low/high rates per loan type × geo mix. Updates live.</div>
+      </div>
+
+      <div class="divider"></div>
+
       <div class="control-group">
-        <div class="control-label">Y1 Capture Rate <span id="lbl-capture">40%</span></div>
-        <input type="range" id="sl-capture" min="10" max="80" step="5" value="40" oninput="update()">
+        <div class="control-label">Y1 Capture Rate <span id="lbl-capture">30%</span></div>
+        <input type="range" id="sl-capture" min="10" max="80" step="5" value="30" oninput="debouncedUpdate()">
       </div>
       <div class="control-group">
         <div class="control-label">Annual Capture Growth <span id="lbl-capgrowth">+5%/yr</span></div>
-        <input type="range" id="sl-capgrowth" min="0" max="15" step="1" value="5" oninput="update()">
+        <input type="range" id="sl-capgrowth" min="0" max="15" step="1" value="5" oninput="debouncedUpdate()">
       </div>
       <div class="control-group">
         <div class="control-label">RBI Volume Growth/yr <span id="lbl-volgrowth">10%</span></div>
-        <input type="range" id="sl-volgrowth" min="0" max="30" step="5" value="10" oninput="update()">
+        <input type="range" id="sl-volgrowth" min="0" max="30" step="5" value="10" oninput="debouncedUpdate()">
       </div>
+
       <div class="divider"></div>
-      <div style="font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:10px;">Renewal Model</div>
-      <div class="control-group">
-        <div class="control-label">DSCR / Rental % of Book <span id="lbl-dscr">20%</span></div>
-        <input type="range" id="sl-dscr" min="0" max="100" step="5" value="20" oninput="update()">
-        <div style="font-size:11px;color:var(--muted);margin-top:4px;">🔴 TBD — confirm with RBI. Only DSCR/rental policies renew annually. Bridge, fix &amp; flip, and construction do not.</div>
-      </div>
+
+      <div style="font-family:&#39;Syne&#39;,sans-serif;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:6px;">Renewal Model</div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:12px;">Renewal rate is driven by your DSCR/Rental % in the loan mix above.</div>
       <div class="control-group">
         <div class="control-label">Renewal Retention (DSCR only) <span id="lbl-retention">70%</span></div>
-        <input type="range" id="sl-retention" min="20" max="100" step="5" value="70" oninput="update()">
+        <input type="range" id="sl-retention" min="20" max="100" step="5" value="70" oninput="debouncedUpdate()">
         <div style="font-size:11px;color:var(--muted);margin-top:4px;">Of DSCR borrowers, what % renew with RBI's brokerage each year.</div>
       </div>
-      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-top:4px;">
-        <div style="font-size:11px;color:var(--muted);margin-bottom:4px;">Effective renewal rate on total book</div>
-        <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--gold);" id="lbl-renewal-eff">14%</div>
-        <div style="font-size:10px;color:var(--muted);margin-top:2px;">DSCR % × retention. This is what feeds the model.</div>
+      <div class="blended-box">
+        <div class="blended-box-label">Effective renewal rate on total book</div>
+        <div class="blended-box-val" id="lbl-renewal-eff">14.0%</div>
+        <div class="blended-box-sub">DSCR mix % × retention. This feeds the model.</div>
       </div>
+
       <div class="divider"></div>
-      <div style="font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:10px;">Geography Mix</div>
-      <div style="font-size:11px;color:var(--muted);margin-bottom:12px;">High-cost states (FL, CA) price 50–100% above lower-cost states for same loan size.</div>
+
+      <div style="font-family:&#39;Syne&#39;,sans-serif;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:10px;">Geography Mix</div>
       <div class="control-group">
-        <div class="control-label">% Volume in High-Cost States <span id="lbl-geo">50%</span></div>
-        <input type="range" id="sl-geo" min="0" max="100" step="5" value="50" oninput="update()">
-        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:4px;"><span>All inland</span><span>All coastal</span></div>
+        <div class="control-label">% Volume in High-Cost States <span id="lbl-geo">40%</span></div>
+        <input type="range" id="sl-geo" min="0" max="100" step="5" value="40" oninput="debouncedUpdate()">
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:4px;"><span>All inland / low-cost</span><span>All coastal / high-cost</span></div>
+        <div style="font-size:11px;color:var(--muted);margin-top:6px;">Blends low-cost and high-cost premium rates per loan type automatically. No separate multiplier needed — rates confirmed by market data.</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div style="font-family:&#39;Syne&#39;,sans-serif;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:10px;">Cost Structure</div>
+      <div class="control-group">
+        <div class="control-label">Y1 Base OpEx <span id="lbl-opex-base">$153,600</span></div>
+        <input type="range" id="sl-opex-base" min="80000" max="300000" step="5000" value="153600" oninput="debouncedUpdate()">
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:4px;"><span>$80K</span><span>$300K</span></div>
       </div>
       <div class="control-group">
-        <div class="control-label">High-Cost Premium Multiplier <span id="lbl-geomult">1.7×</span></div>
-        <input type="range" id="sl-geomult" min="1.2" max="2.5" step="0.1" value="1.7" oninput="update()">
-        <div style="font-size:11px;color:var(--muted);margin-top:4px;">How much more expensive high-cost states are vs. base. 1.5–2.0× is typical.</div>
-      </div>
-      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-top:4px;">
-        <div style="font-size:11px;color:var(--muted);margin-bottom:4px;">Blended premium multiplier</div>
-        <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--gold);" id="lbl-blended">1.35×</div>
-        <div style="font-size:10px;color:var(--muted);margin-top:2px;">Applied to base premium rate automatically</div>
+        <div class="control-label">Annual OpEx Growth <span id="lbl-opex-growth">10%/yr</span></div>
+        <input type="range" id="sl-opex-growth" min="0" max="30" step="1" value="10" oninput="debouncedUpdate()">
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:4px;"><span>0% (flat)</span><span>30%/yr</span></div>
       </div>
     </div>
+
     <div class="results">
       <div class="summary-cards">
         <div class="summary-card">
-          <div class="sc-label">Per Policy Commission</div>
-          <div class="sc-val green" id="card-perpolicy">$1,800</div>
-          <div class="sc-sub">at binding</div>
+          <div class="sc-label">Blended Per Policy Commission</div>
+          <div class="sc-val green" id="card-perpolicy">$2K</div>
+          <div class="sc-sub">after geo adjustment</div>
         </div>
         <div class="summary-card">
           <div class="sc-label">Y1 Policies Placed</div>
-          <div class="sc-val" id="card-y1policies">1,440</div>
-          <div class="sc-sub" id="card-y1sub">of 3,600 closings</div>
+          <div class="sc-val" id="card-y1policies">576</div>
+          <div class="sc-sub" id="card-y1sub">of 1.9K closings</div>
         </div>
         <div class="summary-card highlight">
           <div class="sc-label">Y1 Revenue</div>
-          <div class="sc-val green" id="card-y1rev">$2.6M</div>
+          <div class="sc-val green" id="card-y1rev">$918K</div>
           <div class="sc-sub">new policies only</div>
         </div>
         <div class="summary-card">
           <div class="sc-label">Y5 Revenue</div>
-          <div class="sc-val" id="card-y5rev">$7.4M</div>
-          <div class="sc-sub" id="card-y5sub">new + renewals</div>
+          <div class="sc-val" id="card-y5rev">$3.6M</div>
+          <div class="sc-sub" id="card-y5sub">$2.7M new + $909K renewal</div>
         </div>
         <div class="summary-card gold">
           <div class="sc-label">5-Year Total</div>
-          <div class="sc-val gold" id="card-total">$24.4M</div>
+          <div class="sc-val gold" id="card-total">$11.0M</div>
           <div class="sc-sub">cumulative revenue</div>
         </div>
       </div>
+
+      <!-- LOAN MIX BREAKDOWN CARD -->
+      <div class="table-wrap" style="padding:16px 20px;">
+        <div style="font-family:&#39;Syne&#39;,sans-serif;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:12px;">Current Loan Mix &amp; Premium Rates</div>
+        <table>
+          <thead><tr><th>Loan Type</th><th>Mix</th><th>Low / High Rate</th><th>Blended Rate</th><th>Est. Annual Premium</th><th>Est. Commission</th></tr></thead>
+          <tbody id="mix-table-body"><tr>
+      <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3B7BFF;margin-right:6px;"></span>Fix &amp; Flip</td>
+      <td style="text-align:right">30%</td>
+      <td style="text-align:right">1.75% / 3.15%</td>
+      <td style="text-align:right;color:var(--gold)">2.31%</td>
+      <td style="text-align:right">$18K</td>
+      <td style="text-align:right">$2K</td>
+    </tr><tr>
+      <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#22C87A;margin-right:6px;"></span>New Construction</td>
+      <td style="text-align:right">40%</td>
+      <td style="text-align:right">1.60% / 2.90%</td>
+      <td style="text-align:right;color:var(--gold)">2.12%</td>
+      <td style="text-align:right">$17K</td>
+      <td style="text-align:right">$2K</td>
+    </tr><tr>
+      <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#F5C542;margin-right:6px;"></span>Bridge</td>
+      <td style="text-align:right">10%</td>
+      <td style="text-align:right">1.70% / 3.05%</td>
+      <td style="text-align:right;color:var(--gold)">2.24%</td>
+      <td style="text-align:right">$18K</td>
+      <td style="text-align:right">$2K</td>
+    </tr><tr>
+      <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#A78BFA;margin-right:6px;"></span>DSCR / Rental (incl. STR)</td>
+      <td style="text-align:right">20%</td>
+      <td style="text-align:right">1.00% / 1.80%</td>
+      <td style="text-align:right;color:var(--gold)">1.32%</td>
+      <td style="text-align:right">$10K</td>
+      <td style="text-align:right">$1K</td>
+    </tr><tr class="net-row"><td>Blended</td><td></td><td colspan="2" style="text-align:right">2.03%</td><td style="text-align:right">$16K</td><td style="text-align:right">$2K</td></tr></tbody>
+        </table>
+        <div style="font-size:11px;color:var(--muted);margin-top:10px;">Based on implied property value from loan size ÷ LTV. Low / High rates confirmed from market data — blended rate adjusts automatically with the % high-cost states slider.</div>
+      </div>
+
       <div class="table-wrap">
         <table><thead><tr><th>Metric</th><th>Y1</th><th>Y2</th><th>Y3</th><th>Y4</th><th>Y5</th></tr></thead>
-        <tbody id="table-body"></tbody></table>
+        <tbody id="table-body"><tr><td>RBI Monthly Closings</td><td>160</td><td>176</td><td>194</td><td>213</td><td>234</td></tr><tr><td>Capture Rate</td><td>30%</td><td>35%</td><td>40%</td><td>45%</td><td>50%</td></tr><tr><td>New Policies</td><td>576</td><td>739</td><td>929</td><td>1,150</td><td>1,406</td></tr><tr><td>Renewal Policies</td><td>0</td><td>81</td><td>184</td><td>314</td><td>475</td></tr><tr><td>New Policy Revenue</td><td>$918K</td><td>$1.4M</td><td>$1.8M</td><td>$2.2M</td><td>$2.7M</td></tr><tr><td>Renewal Revenue</td><td>$0</td><td>$155K</td><td>$352K</td><td>$601K</td><td>$909K</td></tr><tr class="net-row"><td>⬛ Total Revenue</td><td>$918K</td><td>$1.6M</td><td>$2.1M</td><td>$2.8M</td><td>$3.6M</td></tr></tbody>
+      </table></div>
+
+      <!-- REVENUE CHART -->
+      <div class="table-wrap" style="padding:24px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+          <div>
+            <div style="font-family:&#39;Syne&#39;,sans-serif;font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;">Revenue by Year</div>
+            <div style="font-size:12px;color:var(--muted);margin-top:3px;">New policy commissions + renewal commissions stacked</div>
+          </div>
+          <div style="display:flex;gap:16px;align-items:center;">
+            <div style="display:flex;align-items:center;gap:6px;"><div style="width:10px;height:10px;border-radius:2px;background:var(--accent);"></div><span style="font-size:11px;color:var(--muted);">New Policies</span></div>
+            <div style="display:flex;align-items:center;gap:6px;"><div style="width:10px;height:10px;border-radius:2px;background:var(--gold);"></div><span style="font-size:11px;color:var(--muted);">Renewals</span></div>
+          </div>
+        </div>
+        <div id="revenue-chart" style="width:100%;"><svg width="787" height="260" xmlns="http://www.w3.org/2000/svg" style="overflow:visible"><line x1="52" y1="224" x2="767" y2="224" stroke="#1E2A40" stroke-width="1"></line><line x1="52" y1="175.5" x2="767" y2="175.5" stroke="#1E2A40" stroke-width="1"></line><text x="46" y="179.5" text-anchor="end" font-size="10" fill="#6B7A99" font-family="DM Sans,sans-serif">$1.0M</text><line x1="52" y1="127" x2="767" y2="127" stroke="#1E2A40" stroke-width="1"></line><text x="46" y="131" text-anchor="end" font-size="10" fill="#6B7A99" font-family="DM Sans,sans-serif">$2.0M</text><line x1="52" y1="78.5" x2="767" y2="78.5" stroke="#1E2A40" stroke-width="1"></line><text x="46" y="82.5" text-anchor="end" font-size="10" fill="#6B7A99" font-family="DM Sans,sans-serif">$3.0M</text><line x1="52" y1="30" x2="767" y2="30" stroke="#1E2A40" stroke-width="1"></line><text x="46" y="34" text-anchor="end" font-size="10" fill="#6B7A99" font-family="DM Sans,sans-serif">$4.0M</text><rect x="84.5" y="179.79858737753474" width="78" height="44.20141262246525" rx="3" fill="#3B7BFF" opacity="0.9"></rect><text x="123.5" y="205.89929368876736" text-anchor="middle" font-size="9" font-weight="700" fill="#fff" font-family="Syne,sans-serif">$918K</text><text x="123.5" y="171.79858737753474" text-anchor="middle" font-size="11" font-weight="700" fill="#E8EDF5" font-family="Syne,sans-serif">$918K</text><text x="123.5" y="242" text-anchor="middle" font-size="11" font-weight="700" fill="#6B7A99" font-family="Syne,sans-serif">Y1</text><rect x="227.5" y="148.48925343662188" width="78" height="7.45898838004101" rx="3" fill="#F5C542" opacity="0.9"></rect><rect x="227.5" y="155.94824181666286" width="78" height="68.05175818333713" rx="3" fill="#3B7BFF" opacity="0.9"></rect><text x="266.5" y="193.97412090833143" text-anchor="middle" font-size="9" font-weight="700" fill="#fff" font-family="Syne,sans-serif">$1.4M</text><text x="266.5" y="140.48925343662188" text-anchor="middle" font-size="11" font-weight="700" fill="#E8EDF5" font-family="Syne,sans-serif">$1.6M</text><text x="266.5" y="128.48925343662188" text-anchor="middle" font-size="9" fill="#F5C542" font-family="DM Sans,sans-serif">10% renewal</text><text x="266.5" y="242" text-anchor="middle" font-size="11" font-weight="700" fill="#6B7A99" font-family="Syne,sans-serif">Y2</text><rect x="370.5" y="121.5079744816587" width="78" height="16.943874838611677" rx="3" fill="#F5C542" opacity="0.9"></rect><rect x="370.5" y="138.45184932027038" width="78" height="85.54815067972962" rx="3" fill="#3B7BFF" opacity="0.9"></rect><text x="409.5" y="185.2259246601352" text-anchor="middle" font-size="9" font-weight="700" fill="#fff" font-family="Syne,sans-serif">$1.8M</text><text x="409.5" y="113.5079744816587" text-anchor="middle" font-size="11" font-weight="700" fill="#E8EDF5" font-family="Syne,sans-serif">$2.1M</text><text x="409.5" y="101.5079744816587" text-anchor="middle" font-size="9" fill="#F5C542" font-family="DM Sans,sans-serif">17% renewal</text><text x="409.5" y="242" text-anchor="middle" font-size="11" font-weight="700" fill="#6B7A99" font-family="Syne,sans-serif">Y3</text><rect x="513.5" y="89.18569150148099" width="78" height="28.915090757196015" rx="3" fill="#F5C542" opacity="0.9"></rect><text x="552.5" y="107.643236880079" text-anchor="middle" font-size="9" font-weight="700" fill="#080C14" font-family="Syne,sans-serif">$601K</text><rect x="513.5" y="118.100782258677" width="78" height="105.899217741323" rx="3" fill="#3B7BFF" opacity="0.9"></rect><text x="552.5" y="175.0503911293385" text-anchor="middle" font-size="9" font-weight="700" fill="#fff" font-family="Syne,sans-serif">$2.2M</text><text x="552.5" y="81.18569150148099" text-anchor="middle" font-size="11" font-weight="700" fill="#E8EDF5" font-family="Syne,sans-serif">$2.8M</text><text x="552.5" y="69.18569150148099" text-anchor="middle" font-size="9" fill="#F5C542" font-family="DM Sans,sans-serif">21% renewal</text><text x="552.5" y="242" text-anchor="middle" font-size="11" font-weight="700" fill="#6B7A99" font-family="Syne,sans-serif">Y4</text><rect x="656.5" y="50.785714285714306" width="78" height="43.74098124098123" rx="3" fill="#F5C542" opacity="0.9"></rect><text x="695.5" y="76.65620490620492" text-anchor="middle" font-size="9" font-weight="700" fill="#080C14" font-family="Syne,sans-serif">$909K</text><rect x="656.5" y="94.52669552669553" width="78" height="129.47330447330447" rx="3" fill="#3B7BFF" opacity="0.9"></rect><text x="695.5" y="163.26334776334778" text-anchor="middle" font-size="9" font-weight="700" fill="#fff" font-family="Syne,sans-serif">$2.7M</text><text x="695.5" y="42.785714285714306" text-anchor="middle" font-size="11" font-weight="700" fill="#E8EDF5" font-family="Syne,sans-serif">$3.6M</text><text x="695.5" y="30.785714285714306" text-anchor="middle" font-size="9" fill="#F5C542" font-family="DM Sans,sans-serif">25% renewal</text><text x="695.5" y="242" text-anchor="middle" font-size="11" font-weight="700" fill="#6B7A99" font-family="Syne,sans-serif">Y5</text></svg></div>
       </div>
-      <div class="table-wrap">
-        <table><thead><tr><th>Revenue Breakdown</th><th>Y1</th><th>Y2</th><th>Y3</th><th>Y4</th><th>Y5</th></tr></thead>
-        <tbody id="bar-body"></tbody></table>
+
+      <!-- YEAR TOGGLE -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 20px;">
+        <div style="font-family:&#39;Syne&#39;,sans-serif;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:12px;">Sensitivity Tables — View Year</div>
+        <div style="display:flex;gap:8px;">
+          <div class="year-btn active" onclick="setYear(1)">Y1</div>
+          <div class="year-btn" onclick="setYear(2)">Y2</div>
+          <div class="year-btn" onclick="setYear(3)">Y3</div>
+          <div class="year-btn" onclick="setYear(4)">Y4</div>
+          <div class="year-btn" onclick="setYear(5)">Y5</div>
+        </div>
+        <div style="font-size:11px;color:var(--muted);margin-top:10px;">All three matrices below update to show revenue for the selected year.</div>
       </div>
+
       <div class="matrix-wrap">
-        <div class="matrix-title">Sensitivity — Y1 Revenue</div>
-        <div class="matrix-sub">Capture rate (rows) × Avg loan size (columns). All other assumptions held constant.</div>
-        <table class="matrix-table" id="matrix-table"></table>
+        <div class="matrix-title" id="m1-title">Sensitivity — Y1 Revenue</div>
+        <div class="matrix-sub">Capture rate (rows) × Avg property value (columns). Premium applied to property value, not loan amount.</div>
+        <table class="matrix-table" id="matrix-table"><thead><tr><th>Capture \ Property Value</th><th style="">$250K</th><th style="">$500K</th><th style="color:var(--gold)">$750K ★</th><th style="">$1M</th><th style="">$1.3M</th><th style="">$1.5M</th></tr></thead><tbody><tr><td>20% capture</td><td class="cell-low">$195K</td><td class="cell-low">$390K</td><td class="cell-low">$584K</td><td class="cell-low">$779K</td><td class="cell-low">$974K</td><td class="cell-mid">$1.2M</td></tr><tr><td>30% capture</td><td class="cell-low">$292K</td><td class="cell-low">$584K</td><td class="cell-active">$877K</td><td class="cell-mid">$1.2M</td><td class="cell-mid">$1.5M</td><td class="cell-mid">$1.8M</td></tr><tr><td>40% capture</td><td class="cell-low">$390K</td><td class="cell-low">$779K</td><td class="cell-mid">$1.2M</td><td class="cell-mid">$1.6M</td><td class="cell-mid">$1.9M</td><td class="cell-mid">$2.3M</td></tr><tr><td>50% capture</td><td class="cell-low">$487K</td><td class="cell-low">$974K</td><td class="cell-mid">$1.5M</td><td class="cell-mid">$1.9M</td><td class="cell-mid">$2.4M</td><td class="cell-mid">$2.9M</td></tr><tr><td>60% capture</td><td class="cell-low">$584K</td><td class="cell-mid">$1.2M</td><td class="cell-mid">$1.8M</td><td class="cell-mid">$2.3M</td><td class="cell-mid">$2.9M</td><td class="cell-mid">$3.5M</td></tr><tr><td>70% capture</td><td class="cell-low">$682K</td><td class="cell-mid">$1.4M</td><td class="cell-mid">$2.0M</td><td class="cell-mid">$2.7M</td><td class="cell-mid">$3.4M</td><td class="cell-high">$4.1M</td></tr></tbody></table>
       </div>
+
       <div class="matrix-wrap">
-        <div class="matrix-title">Sensitivity — Y5 Revenue</div>
-        <div class="matrix-sub">DSCR/rental % of book (rows) × Monthly loan closings (columns). Shows how much the loan mix matters at scale.</div>
-        <table class="matrix-table" id="matrix-table2"></table>
+        <div class="matrix-title" id="m2-title">Sensitivity — Y1 Revenue</div>
+        <div class="matrix-sub">DSCR % of book (rows) × Monthly loan closings (columns). Shows how loan mix and volume interact.</div>
+        <table class="matrix-table" id="matrix-table2"><thead><tr><th>DSCR % \ Volume</th><th>150/mo</th><th>200/mo</th><th>300/mo</th><th>400/mo</th><th>500/mo</th><th>600/mo</th></tr></thead><tbody><tr><td>5% DSCR</td><td class="cell-low">$861K</td><td class="cell-mid">$1.1M</td><td class="cell-mid">$1.7M</td><td class="cell-mid">$2.3M</td><td class="cell-mid">$2.9M</td><td class="cell-high">$3.4M</td></tr><tr><td>10% DSCR</td><td class="cell-low">$861K</td><td class="cell-mid">$1.1M</td><td class="cell-mid">$1.7M</td><td class="cell-mid">$2.3M</td><td class="cell-mid">$2.9M</td><td class="cell-high">$3.4M</td></tr><tr><td>20% DSCR</td><td class="cell-active">$861K</td><td class="cell-mid">$1.1M</td><td class="cell-mid">$1.7M</td><td class="cell-mid">$2.3M</td><td class="cell-mid">$2.9M</td><td class="cell-high">$3.4M</td></tr><tr><td>30% DSCR</td><td class="cell-low">$861K</td><td class="cell-mid">$1.1M</td><td class="cell-mid">$1.7M</td><td class="cell-mid">$2.3M</td><td class="cell-mid">$2.9M</td><td class="cell-high">$3.4M</td></tr><tr><td>40% DSCR</td><td class="cell-low">$861K</td><td class="cell-mid">$1.1M</td><td class="cell-mid">$1.7M</td><td class="cell-mid">$2.3M</td><td class="cell-mid">$2.9M</td><td class="cell-high">$3.4M</td></tr><tr><td>50% DSCR</td><td class="cell-low">$861K</td><td class="cell-mid">$1.1M</td><td class="cell-mid">$1.7M</td><td class="cell-mid">$2.3M</td><td class="cell-mid">$2.9M</td><td class="cell-high">$3.4M</td></tr></tbody></table>
       </div>
-      <div class="matrix-wrap">
-        <div class="matrix-title">Sensitivity — Y1 Revenue by Geography Mix</div>
-        <div class="matrix-sub">% volume in high-cost states (rows) × avg loan size (columns). Shows the geography premium impact directly.</div>
-        <table class="matrix-table" id="matrix-table3"></table>
-      </div>
-      <div class="note">
-        All figures are gross commission revenue, before OpEx. Adjust sliders to reflect confirmed inputs as they become available — the model updates instantly.
-      </div>
+
+
+
     </div>
   </div>
-</div>
+  </div><!-- /tab-model -->
+
+  <div id="tab-pl" class="tab-panel">
+  <style>
+    .pl-wrap{max-width:960px;margin:0 auto;}
+    .pl-hdr{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--text);margin-bottom:4px;}
+    .pl-sub{font-size:11px;color:var(--muted);margin-bottom:28px;}
+    .pl-sec{margin-bottom:6px;}
+    .pl-sec-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;color:var(--muted);
+      text-transform:uppercase;letter-spacing:0.1em;padding:7px 14px;
+      background:var(--surface2,#141B2B);border:1px solid var(--border);
+      border-bottom:none;border-radius:6px 6px 0 0;display:block;}
+    .pl-tbl{width:100%;border-collapse:collapse;background:var(--surface);
+      border:1px solid var(--border);border-radius:0 6px 6px 6px;margin-bottom:0;}
+    .pl-tbl th{padding:9px 14px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;
+      color:var(--muted);text-align:right;background:var(--surface);
+      border-bottom:1px solid var(--border);}
+    .pl-tbl th:first-child{text-align:left;width:42%;}
+    .pl-tbl td{padding:8px 14px;font-size:12px;color:var(--text);text-align:right;
+      border-bottom:1px solid rgba(30,42,64,0.5);}
+    .pl-tbl td:first-child{text-align:left;color:var(--muted);font-size:11px;}
+    .pl-tbl tr:last-child td{border-bottom:none;}
+    .pl-tbl tr.pl-total td{font-weight:700;background:rgba(14,20,32,0.5);border-top:1px solid var(--border);}
+    .pl-tbl tr.pl-total td:first-child{color:var(--text);}
+    .pl-tbl tr.pl-net td{font-size:13px;font-weight:700;background:#0D1B2A;border-top:2px solid var(--gold,#F5C542);}
+    .pl-tbl tr.pl-net td:first-child{color:var(--green,#22C87A);}
+    .pl-tbl tr.pl-cum td{background:rgba(34,200,122,0.04);}
+    .pl-tbl tr.pl-cum td:first-child{color:var(--muted);font-style:italic;font-size:11px;}
+    .pl-tbl tr.pl-sub-row td:first-child{padding-left:28px;font-size:10px;}
+    .pl-red{color:#E74C3C !important;}
+    .pl-green{color:#22C87A !important;}
+    .pl-gold{color:#F5C542 !important;}
+    .pl-muted{color:var(--muted) !important;font-size:11px;}
+    .pl-dash{color:var(--muted);font-style:italic;}
+    .pl-spacer{height:18px;}
+    .pl-note{font-size:10px;color:var(--muted);margin-top:8px;padding:8px 14px;
+      background:var(--surface);border:1px solid var(--border);border-radius:6px;font-style:italic;line-height:1.5;}
+  </style>
+
+  <div class="pl-wrap">
+    <div class="pl-hdr">RBI Insurance Brokerage — 5-Year P&amp;L</div>
+    <div class="pl-sub">Base Case &nbsp;·&nbsp; All figures in USD &nbsp;·&nbsp; Updates live with Revenue Model sliders</div>
+
+    <div class="pl-sec"><div class="pl-sec-lbl">Volume &amp; Policies</div>
+      <table class="pl-tbl"><colgroup><col style="width:42%"><col style="width:11.6%"><col style="width:11.6%"><col style="width:11.6%"><col style="width:11.6%"><col style="width:11.6%"></colgroup><thead><tr><th></th><th>Y1</th><th>Y2</th><th>Y3</th><th>Y4</th><th>Y5</th></tr></thead>
+      <tbody id="pl-vol"></tbody></table></div>
+
+    <div class="pl-spacer"></div>
+
+    <div class="pl-sec"><div class="pl-sec-lbl">Revenue</div>
+      <table class="pl-tbl"><colgroup><col style="width:42%"><col style="width:11.6%"><col style="width:11.6%"><col style="width:11.6%"><col style="width:11.6%"><col style="width:11.6%"></colgroup><thead><tr><th></th><th>Y1</th><th>Y2</th><th>Y3</th><th>Y4</th><th>Y5</th></tr></thead>
+      <tbody id="pl-rev"></tbody></table></div>
+
+    <div class="pl-spacer"></div>
+
+    <div class="pl-sec"><div class="pl-sec-lbl">Operating Expenses</div>
+      <table class="pl-tbl"><colgroup><col style="width:42%"><col style="width:11.6%"><col style="width:11.6%"><col style="width:11.6%"><col style="width:11.6%"><col style="width:11.6%"></colgroup><thead><tr><th></th><th>Y1</th><th>Y2</th><th>Y3</th><th>Y4</th><th>Y5</th></tr></thead>
+      <tbody id="pl-opex"></tbody></table></div>
+
+    <div class="pl-spacer"></div>
+
+    <div class="pl-sec"><div class="pl-sec-lbl">One-Time Startup Costs (Year 1 Only)</div>
+      <table class="pl-tbl"><colgroup><col style="width:42%"><col style="width:11.6%"><col style="width:11.6%"><col style="width:11.6%"><col style="width:11.6%"><col style="width:11.6%"></colgroup><thead><tr><th></th><th>Y1</th><th>Y2</th><th>Y3</th><th>Y4</th><th>Y5</th></tr></thead>
+      <tbody id="pl-capex"></tbody></table></div>
+
+    <div class="pl-spacer"></div>
+
+    <div class="pl-sec"><div class="pl-sec-lbl">Net Income</div>
+      <table class="pl-tbl"><colgroup><col style="width:42%"><col style="width:11.6%"><col style="width:11.6%"><col style="width:11.6%"><col style="width:11.6%"><col style="width:11.6%"></colgroup><thead><tr><th></th><th>Y1</th><th>Y2</th><th>Y3</th><th>Y4</th><th>Y5</th></tr></thead>
+      <tbody id="pl-net"></tbody></table></div>
+
+    <div class="pl-note">OpEx is stepped by year, not grown at a flat rate. 2nd admin added Y3 when new policies exceed 900/yr. 3rd admin added Y4 when volume exceeds 1,100 policies. DSCR renewals begin Y2. CapEx of $8.0K is a one-time Y1 hit only.</div>
+  </div>
+</div><!-- /tab-pl -->
 <script>
 const fmt=n=>n>=1e6?'$'+(n/1e6).toFixed(1)+'M':n>=1e3?'$'+(n/1e3).toFixed(0)+'K':'$'+n.toFixed(0);
 const fmtN=n=>n>=1e3?(n/1e3).toFixed(1)+'K':n.toFixed(0);
-function getVals(){return{
-  loans:+document.getElementById('sl-loans').value,
-  loansize:+document.getElementById('sl-loansize').value*1000,
-  premium:+document.getElementById('sl-premium').value/100,
-  commission:+document.getElementById('sl-commission').value/100,
-  capture:+document.getElementById('sl-capture').value/100,
-  capgrowth:+document.getElementById('sl-capgrowth').value/100,
-  volgrowth:+document.getElementById('sl-volgrowth').value/100,
-  dscr:+document.getElementById('sl-dscr').value/100,
-  retention:+document.getElementById('sl-retention').value/100,
-  geo:+document.getElementById('sl-geo').value/100,
-  geomult:+document.getElementById('sl-geomult').value,
-};}
-function calcYear(loansPerMonth,capture,loansize,premium,commission,renewal,prevPolicies){
-  const annual=loansPerMonth*12,newPolicies=Math.round(annual*capture),perPolicy=loansize*premium*commission;
-  const newRev=newPolicies*perPolicy,renewalPolicies=Math.round(prevPolicies*renewal),renewalRev=renewalPolicies*perPolicy;
-  return{annual,newPolicies,renewalPolicies,newRev,renewalRev,total:newRev+renewalRev,perPolicy};
+
+let selectedYear = 0;
+let discountYears = new Set([1]); // Y1 discounted by default
+
+function toggleDiscountYear(y) {
+  if (discountYears.has(y)) {
+    discountYears.delete(y);
+  } else {
+    discountYears.add(y);
+  }
+  document.getElementById('disc-y'+y).classList.toggle('active', discountYears.has(y));
+  update();
 }
-function calcAll(v){
-  const years=[];let cumPolicies=0,loans=v.loans,capture=v.capture;
-  for(let y=1;y<=5;y++){
-    const yr=calcYear(loans,Math.min(capture,0.80),v.loansize,v.premium,v.commission,v.renewal,cumPolicies);
-    years.push(yr);cumPolicies+=yr.newPolicies;loans*=(1+v.volgrowth);capture+=v.capgrowth;
+
+
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  btn.classList.add('active');
+  if (name === 'pl') renderPL();
+}
+
+function M(n) {
+  // Always $0.00M — single source of truth for all dollar formatting in P&L tab
+  if (n === null || n === undefined) return '<span class="pl-dash">—</span>';
+  const abs = Math.abs(n);
+  const s = '$'+(abs/1e6).toFixed(2)+'M';
+  return n < 0 ? '<span class="pl-red">('+s+')</span>' : s;
+}
+function fmtD(n)      { return M(n); }
+function K(n) {
+  // $0.00K format for small values like CapEx line items
+  if (!n) return '$0.0K';
+  const abs = Math.abs(n);
+  const s = '$'+(abs/1e3).toFixed(2)+'K';
+  return n < 0 ? '<span class="pl-red">('+s+')</span>' : s;
+}
+function Kred(n) {
+  if (!n) return '$0.0K';
+  return '<span class="pl-red">($'+(Math.abs(n)/1e3).toFixed(1)+'K)</span>';
+}
+function fmtDred(n)   { if (!n) return '<span class="pl-dash">—</span>'; return '<span class="pl-red">('+M(Math.abs(n)).replace(/<[^>]+>/g,'')+')</span>'; }
+function fmtDgreen(n) { return '<span class="pl-green">'+M(n).replace(/<[^>]+>/g,'')+'</span>'; }
+function fmtRow(vals) { return vals.map(n => M(n)); }
+function fmtRowK(vals) {
+  // $X.XK format for OpEx line items
+  return vals.map(n => {
+    if (n === null || n === undefined) return '<span class="pl-dash">—</span>';
+    const s = '$'+(Math.abs(n)/1e3).toFixed(1)+'K';
+    return n < 0 ? '<span class="pl-red">('+s+')</span>' : s;
+  });
+}
+function fmtRowGreen(vals) { return vals.map(n => n===null ? M(n) : '<span class="pl-green">'+M(n).replace(/<[^>]+>/g,'')+'</span>'); }
+function cntFmt(n) { return n===null?'<span class="pl-dash">—</span>':Math.round(n).toLocaleString(); }
+function pctFmt(n) { return n===null?'<span class="pl-dash">—</span>':(n*100).toFixed(0)+'%'; }
+
+function renderPL() {
+  const v = getVals();
+  const propVal = v.loansize / v.ltv;
+  const blendedPremium = getBlendedPremium(v.mix, v.geo);
+  const renewal = v.dscr * v.retention;
+  const yrs = calcAll({...v, propVal, renewal});
+
+  const opexStepped = [153600, 164100, 212100, 266600, 291600];
+  const opexScale = v.opexBase / 153600;
+  const opex = opexStepped.map(o => Math.round(o * opexScale));
+  const capex = 8000;
+  const revs = yrs.map(y => y.total);
+  const net = revs.map((r,i) => i===0 ? r-opex[i]-capex : r-opex[i]);
+  let cum=0; const cumNet = net.map(n=>{cum+=n;return cum;});
+
+  const row = (label, vals, fmtFn, cls='') =>
+    `<tr class="${cls}"><td>${label}</td>${vals.map(v=>`<td>${fmtFn(v)}</td>`).join('')}</tr>`;
+  const subrow = (label, vals, fmtFn) =>
+    `<tr class="pl-sub-row"><td>${label}</td>${vals.map(v=>`<td>${fmtFn(v)}</td>`).join('')}</tr>`;
+  const dashRow = (label, y1val, fmtFn) =>
+    `<tr><td>${label}</td><td>${fmtFn(y1val)}</td><td class="pl-dash">—</td><td class="pl-dash">—</td><td class="pl-dash">—</td><td class="pl-dash">—</td></tr>`;
+
+  // VOLUME
+  const loans = yrs.map((_,i)=>Math.round(v.loans*Math.pow(1+v.volgrowth,i)));
+  const caps  = yrs.map((_,i)=>Math.min(v.capture+i*v.capgrowth,0.80));
+  document.getElementById('pl-vol').innerHTML =
+    row('RBI Monthly Loan Closings', loans, cntFmt, 'pl-total') +
+    row('Annual Loan Closings', loans.map(l=>l*12), cntFmt) +
+    row('Capture Rate', caps, pctFmt) +
+    row('New Policies Written', yrs.map(y=>y.newPolicies), cntFmt, 'pl-total') +
+    subrow('Fix &amp; Flip (30%)', yrs.map(y=>Math.round(y.newPolicies*0.30)), cntFmt) +
+    subrow('New Construction (40%)', yrs.map(y=>Math.round(y.newPolicies*0.40)), cntFmt) +
+    subrow('Bridge (10%)', yrs.map(y=>Math.round(y.newPolicies*0.10)), cntFmt) +
+    subrow('DSCR / Rental (20%)', yrs.map(y=>Math.round(y.newPolicies*0.20)), cntFmt) +
+    row('Renewal Policies (DSCR only)', yrs.map(y=>y.renewalPolicies), cntFmt);
+
+  // REVENUE
+  const perPol = yrs.map((_,i)=>propVal*blendedPremium*v.commByYear[i]);
+  document.getElementById('pl-rev').innerHTML =
+    row('Commission Rate', v.commByYear, pctFmt) +
+    `<tr><td>New Policy Revenue</td>${fmtRow(yrs.map(y=>y.newRev)).map(s=>`<td style="color:var(--text)">${s.replace(/<[^>]+>/g,'')}</td>`).join('')}</tr>` +
+    `<tr><td>Renewal Revenue (DSCR)</td>${fmtRow(yrs.map(y=>y.renewalRev)).map(s=>`<td style="color:var(--text)">${s.replace(/<[^>]+>/g,'')}</td>`).join('')}</tr>` +
+    `<tr class="pl-total"><td>Gross Revenue</td>${fmtRowGreen(revs).map(s=>`<td>${s}</td>`).join('')}</tr>` +
+    `<tr class="pl-muted"><td class="pl-muted">YoY Growth</td>${revs.map((r,i)=>i===0?'<td class="pl-muted">—</td>':`<td class="pl-muted">${((r/revs[i-1]-1)*100).toFixed(0)}%</td>`).join('')}</tr>` +
+    `<tr><td class="pl-muted">Renewal % of Revenue</td>${revs.map((r,i)=>`<td class="pl-muted">${r>0?((yrs[i].renewalRev/r)*100).toFixed(0)+'%':'—'}</td>`).join('')}</tr>`;
+
+  // OPEX
+  const salary=[100000,105000,115000,125000,135000];
+  const csr1=[21600,21600,21600,21600,21600];
+  const admin2=[null,null,30000,36000,36000];
+  const admin3=[null,null,null,30000,36000];
+  const eo=[5000,6500,8500,11000,14000];
+  const ams=[8000,8000,9000,10000,10000];
+  const lic=[7500,10000,13000,16000,20000];
+  const legal=[6500,7000,8000,9000,10000];
+  const misc=[5000,6000,7000,8000,9000];
+  document.getElementById('pl-opex').innerHTML =
+    `<tr><td>Principal Salary (Alan)</td>${fmtRowK(salary).map(s=>`<td class="pl-red">(${s.replace(/<[^>]+>/g,'')})</td>`).join('')}</tr>` +
+    `<tr><td>Offshore CSR / Admin #1</td>${fmtRowK(csr1).map(s=>`<td class="pl-red">(${s.replace(/<[^>]+>/g,'')})</td>`).join('')}</tr>` +
+    `<tr><td>2nd Admin (added Y3)</td>${fmtRowK(admin2).map((s,i)=>admin2[i]===null?`<td class="pl-dash">—</td>`:`<td class="pl-red">(${s.replace(/<[^>]+>/g,'')})</td>`).join('')}</tr>` +
+    `<tr><td>3rd Admin (added Y4)</td>${fmtRowK(admin3).map((s,i)=>admin3[i]===null?`<td class="pl-dash">—</td>`:`<td class="pl-red">(${s.replace(/<[^>]+>/g,'')})</td>`).join('')}</tr>` +
+    `<tr><td>E&amp;O Insurance</td>${fmtRowK(eo).map(s=>`<td class="pl-red">(${s.replace(/<[^>]+>/g,'')})</td>`).join('')}</tr>` +
+    `<tr><td>AMS Software (EZLynx)</td>${fmtRowK(ams).map(s=>`<td class="pl-red">(${s.replace(/<[^>]+>/g,'')})</td>`).join('')}</tr>` +
+    `<tr><td>State Licensing + CE</td>${fmtRowK(lic).map(s=>`<td class="pl-red">(${s.replace(/<[^>]+>/g,'')})</td>`).join('')}</tr>` +
+    `<tr><td>Legal / Accounting</td>${fmtRowK(legal).map(s=>`<td class="pl-red">(${s.replace(/<[^>]+>/g,'')})</td>`).join('')}</tr>` +
+    `<tr><td>Miscellaneous</td>${fmtRowK(misc).map(s=>`<td class="pl-red">(${s.replace(/<[^>]+>/g,'')})</td>`).join('')}</tr>` +
+    `<tr class="pl-total"><td>Total Operating Expenses</td>${fmtRowK(opex).map(s=>`<td class="pl-red">(${s.replace(/<[^>]+>/g,'')})</td>`).join('')}</tr>` +
+    `<tr><td class="pl-muted">OpEx as % of Revenue</td>${revs.map((r,i)=>`<td class="pl-muted">${r>0?((opex[i]/r)*100).toFixed(0)+'%':'—'}</td>`).join('')}</tr>`;
+
+  // CAPEX
+  document.getElementById('pl-capex').innerHTML =
+    dashRow('LLC Formation + Operating Agreement', 2500, Kred) +
+    dashRow('P&amp;C Licensing (2-20 course, exam, fees)', 650, Kred) +
+    dashRow('RESPA / Affiliate Structure Legal Review', 3500, Kred) +
+    dashRow('AMS Setup + First 3 Months', 600, Kred) +
+    dashRow('Initial Marketing Materials', 750, Kred) +
+    dashRow('CRM Integration (RBI tech team)', 0, ()=>'$0.0K') +
+    `<tr class="pl-total"><td>Total Startup CapEx</td><td class="pl-red">($8.0K)</td><td class="pl-dash">—</td><td class="pl-dash">—</td><td class="pl-dash">—</td><td class="pl-dash">—</td></tr>`;
+
+  // NET
+  let cumD=0; const cumRows=net.map(n=>{cumD+=n;return cumD;});
+  document.getElementById('pl-net').innerHTML =
+    `<tr><td>Gross Revenue</td>${fmtRowGreen(revs).map(s=>`<td>${s}</td>`).join('')}</tr>` +
+    `<tr><td>Less: Operating Expenses</td>${fmtRow(opex).map(s=>`<td class="pl-red">(${s.replace(/<[^>]+>/g,'')})</td>`).join('')}</tr>` +
+    `<tr><td>Less: Startup CapEx</td><td class="pl-red">($0.01M)</td><td class="pl-dash">—</td><td class="pl-dash">—</td><td class="pl-dash">—</td><td class="pl-dash">—</td></tr>` +
+    `<tr class="pl-net"><td>Net Profit</td>${fmtRowGreen(net).map(s=>`<td>${s}</td>`).join('')}</tr>` +
+    `<tr><td class="pl-muted">Net Margin</td>${revs.map((r,i)=>`<td class="pl-muted">${r>0?((net[i]/r)*100).toFixed(0)+'%':'—'}</td>`).join('')}</tr>` +
+    `<tr class="pl-cum"><td>Cumulative Net Profit</td>${fmtRowGreen(cumRows).map(s=>`<td>${s}</td>`).join('')}</tr>`;
+}
+
+function setYear(y) {
+  selectedYear = y - 1;
+  document.querySelectorAll('.year-btn').forEach((b,i) => b.classList.toggle('active', i === selectedYear));
+  const label = 'Y'+y+' Revenue';
+  document.getElementById('m1-title').textContent = 'Sensitivity — '+label;
+  document.getElementById('m2-title').textContent = 'Sensitivity — '+label;
+  update();
+}
+const pct=n=>(n*100).toFixed(0)+'%';
+
+// Premium rates per loan type (% of property value) — confirmed market rates
+// Already include liability, flood probability, and real market pricing
+const RATES_LOW = {
+  fixflip: 0.0175,  // 1.75% — low-cost states
+  newcon:  0.0160,  // 1.60% — low-cost states
+  bridge:  0.0170,  // 1.70% — low-cost states
+  dscrltr: 0.0100,  // 1.00% — low-cost states
+};
+const RATES_HIGH = {
+  fixflip: 0.0315,  // 3.15% — high-cost states (FL, coastal)
+  newcon:  0.0290,  // 2.90% — high-cost states
+  bridge:  0.0305,  // 3.05% — high-cost states
+  dscrltr: 0.0180,  // 1.80% — high-cost states
+};
+
+// Blended rate per loan type given geo mix
+function getBlendedRateForType(t, geo) {
+  return (geo * RATES_HIGH[t]) + ((1 - geo) * RATES_LOW[t]);
+}
+
+// Blended premium across all loan types given mix and geo
+function getBlendedPremium(mix, geo) {
+  return TYPES.reduce((sum, t) => sum + mix[t] * getBlendedRateForType(t, geo), 0);
+}const COLORS = {
+  fixflip:'#3B7BFF', newcon:'#22C87A', bridge:'#F5C542', dscrltr:'#A78BFA'
+};
+
+const LABELS = {
+  fixflip:'Fix & Flip', newcon:'New Construction', bridge:'Bridge', dscrltr:'DSCR / Rental (incl. STR)'
+};
+
+const TYPES = ['fixflip','newcon','bridge','dscrltr'];
+
+function getMix() {
+  const raw = {};
+  let total = 0;
+  TYPES.forEach(t => { raw[t] = +document.getElementById('sl-'+t).value; total += raw[t]; });
+  const mix = {};
+  TYPES.forEach(t => { mix[t] = total > 0 ? raw[t] / total : 0.2; });
+  return { mix, total };
+}
+
+function normalizeMix(changed) {
+  const { mix, total } = getMix();
+  // Update labels to show normalized %
+  TYPES.forEach(t => {
+    document.getElementById('lbl-'+t).textContent = (mix[t]*100).toFixed(0)+'%';
+  });
+  const totalEl = document.getElementById('lbl-mixtotal');
+  totalEl.textContent = '100%';
+  totalEl.style.color = 'var(--green)';
+  update();
+}
+
+function getVals() {
+  const { mix } = getMix();
+  const baseComm = +document.getElementById('sl-commission').value / 100;
+  const discount = +document.getElementById('sl-discount').value / 100;
+  const commByYear = [1,2,3,4,5].map(y => discountYears.has(y) ? Math.max(0, baseComm - discount) : baseComm);
+  return {
+    loans: +document.getElementById('sl-loans').value,
+    loansize: +document.getElementById('sl-loansize').value * 1000,
+    ltv: +document.getElementById('sl-ltv').value / 100,
+    commission: baseComm,
+    discount,
+    commByYear,
+    capture: +document.getElementById('sl-capture').value / 100,
+    capgrowth: +document.getElementById('sl-capgrowth').value / 100,
+    volgrowth: +document.getElementById('sl-volgrowth').value / 100,
+    dscr: mix.dscrltr,
+    retention: +document.getElementById('sl-retention').value / 100,
+    geo: +document.getElementById('sl-geo').value / 100,
+    opexBase: +document.getElementById('sl-opex-base').value,
+    opexGrowth: +document.getElementById('sl-opex-growth').value / 100,
+    mix,
+  };
+}
+
+function calcYear(loansPerMonth, capture, propVal, commByYearArr, renewal, prevPolicies, yearIdx, mix, geo) {
+  const annual = loansPerMonth * 12;
+  const newPolicies = Math.round(annual * capture);
+  const comm = commByYearArr[yearIdx];
+
+  // Calculate revenue per loan type bucket — each uses its own blended rate
+  let newRev = 0;
+  const bucketRevenue = {};
+  TYPES.forEach(t => {
+    const bucketPolicies = newPolicies * mix[t];
+    const rate = getBlendedRateForType(t, geo);
+    const perPolicy = propVal * rate * comm;
+    const rev = bucketPolicies * perPolicy;
+    bucketRevenue[t] = rev;
+    newRev += rev;
+  });
+
+  // Blended per-policy for renewals
+  const blendedRate = getBlendedPremium(mix, geo);
+  const renewalPerPolicy = propVal * blendedRate * comm;
+  const renewalPolicies = Math.round(prevPolicies * renewal);
+  const renewalRev = renewalPolicies * renewalPerPolicy;
+  const perPolicy = propVal * blendedRate * comm;
+
+  return {annual, newPolicies, renewalPolicies, newRev, renewalRev, total: newRev+renewalRev, perPolicy, bucketRevenue};
+}
+
+function calcAll(v) {
+  const years = []; let cum = 0, loans = v.loans, cap = v.capture;
+  for (let y = 1; y <= 5; y++) {
+    const yr = calcYear(loans, Math.min(cap, 0.80), v.propVal, v.commByYear, v.renewal, cum, y-1, v.mix, v.geo);
+    years.push(yr);
+    cum += yr.newPolicies;
+    loans *= (1 + v.volgrowth);
+    cap += v.capgrowth;
   }
   return years;
 }
-function update(){
-  const v=getVals();
-  document.getElementById('lbl-loans').textContent=v.loans;
-  document.getElementById('lbl-loansize').textContent=v.loansize>=1e6?'$'+(v.loansize/1e6).toFixed(1)+'M':'$'+(v.loansize/1e3).toFixed(0)+'K';
-  document.getElementById('lbl-premium').textContent=(v.premium*100).toFixed(1)+'%';
-  document.getElementById('lbl-commission').textContent=(v.commission*100).toFixed(0)+'%';
-  document.getElementById('lbl-capture').textContent=(v.capture*100).toFixed(0)+'%';
-  document.getElementById('lbl-capgrowth').textContent='+'+(v.capgrowth*100).toFixed(0)+'%/yr';
-  document.getElementById('lbl-volgrowth').textContent=(v.volgrowth*100).toFixed(0)+'%';
-  document.getElementById('lbl-dscr').textContent=(v.dscr*100).toFixed(0)+'%';
-  document.getElementById('lbl-retention').textContent=(v.retention*100).toFixed(0)+'%';
+
+let _debTimer = null;
+function debouncedUpdate() {
+  // Update labels immediately for responsive feel
+  const v = getVals();
+  const propVal = v.loansize / v.ltv;
+  document.getElementById('lbl-loans').textContent = v.loans;
+  document.getElementById('lbl-loansize').textContent = v.loansize>=1e6?'$'+(v.loansize/1e6).toFixed(1)+'M':'$'+(v.loansize/1e3).toFixed(0)+'K';
+  document.getElementById('lbl-ltv').textContent = (v.ltv*100).toFixed(0)+'%';
+  document.getElementById('lbl-propval').textContent = propVal>=1e6?'$'+(propVal/1e6).toFixed(2)+'M':'$'+(propVal/1e3).toFixed(0)+'K';
+  // Debounce heavy recalculation
+  clearTimeout(_debTimer);
+  _debTimer = setTimeout(update, 80);
+}
+
+function update() {
+  const v = getVals();
+  const propVal = v.loansize / v.ltv; // property value = loan size ÷ LTV
+  const blendedPremium = getBlendedPremium(v.mix, v.geo);
+  // geoBlend removed — blending handled per-bucket in calcYear
+  const effPrem = blendedPremium; // effPrem now already accounts for geo
   const renewal = v.dscr * v.retention;
-  document.getElementById('lbl-renewal-eff').textContent=(renewal*100).toFixed(1)+'%';
-  document.getElementById('lbl-geo').textContent=(v.geo*100).toFixed(0)+'%';
-  document.getElementById('lbl-geomult').textContent=v.geomult.toFixed(1)+'×';
-  const blended=v.geo*v.geomult+(1-v.geo)*1.0;
-  document.getElementById('lbl-blended').textContent=blended.toFixed(2)+'×';
-  const effPrem=v.premium*blended;
-  const years=calcAll({...v,renewal,premium:effPrem});
-  const perPolicy=v.loansize*effPrem*v.commission;
-  const totalRev=years.reduce((s,y)=>s+y.total,0);
-  document.getElementById('card-perpolicy').textContent=fmt(perPolicy);
-  document.getElementById('card-y1policies').textContent=fmtN(years[0].newPolicies);
-  document.getElementById('card-y1sub').textContent='of '+fmtN(years[0].annual)+' closings';
-  document.getElementById('card-y1rev').textContent=fmt(years[0].total);
-  document.getElementById('card-y5rev').textContent=fmt(years[4].total);
-  document.getElementById('card-y5sub').textContent=fmt(years[4].newRev)+' new + '+fmt(years[4].renewalRev)+' renewal';
-  document.getElementById('card-total').textContent=fmt(totalRev);
-  const rows=[
-    {label:'RBI Monthly Closings',vals:years.map((y,i)=>Math.round(v.loans*Math.pow(1+v.volgrowth,i))),fmt:n=>n.toLocaleString()},
-    {label:'Capture Rate',vals:years.map((_,i)=>Math.min(v.capture*100+i*v.capgrowth*100,80).toFixed(0)+'%'),raw:true},
-    {label:'New Policies',vals:years.map(y=>y.newPolicies),fmt:n=>n.toLocaleString()},
-    {label:'Renewal Policies',vals:years.map(y=>y.renewalPolicies),fmt:n=>n.toLocaleString()},
-    {label:'New Policy Revenue',vals:years.map(y=>y.newRev),fmt:fmt},
-    {label:'Renewal Revenue',vals:years.map(y=>y.renewalRev),fmt:fmt},
-    {label:'⬛ Total Revenue',vals:years.map(y=>y.total),fmt:fmt,net:true},
+
+  // Labels
+  document.getElementById('lbl-loans').textContent = v.loans;
+  document.getElementById('lbl-loansize').textContent = v.loansize>=1e6?'$'+(v.loansize/1e6).toFixed(1)+'M':'$'+(v.loansize/1e3).toFixed(0)+'K';
+  document.getElementById('lbl-ltv').textContent = (v.ltv*100).toFixed(0)+'%';
+  document.getElementById('lbl-propval').textContent = propVal>=1e6?'$'+(propVal/1e6).toFixed(2)+'M':'$'+(propVal/1e3).toFixed(0)+'K';
+  document.getElementById('lbl-commission').textContent = (v.commission*100).toFixed(0)+'%';
+  document.getElementById('lbl-discount').textContent = (v.discount*100).toFixed(1)+'%';
+  // Update per-year rate display
+  [1,2,3,4,5].forEach(y => {
+    const rate = v.commByYear[y-1];
+    const el = document.getElementById('rate-y'+y);
+    el.textContent = (rate*100).toFixed(1)+'%';
+    el.style.color = discountYears.has(y) && v.discount > 0 ? 'var(--gold)' : 'var(--green)';
+  });
+  document.getElementById('lbl-capture').textContent = (v.capture*100).toFixed(0)+'%';
+  document.getElementById('lbl-capgrowth').textContent = '+'+(v.capgrowth*100).toFixed(0)+'%/yr';
+  document.getElementById('lbl-volgrowth').textContent = (v.volgrowth*100).toFixed(0)+'%';
+  document.getElementById('lbl-geo').textContent = (v.geo*100).toFixed(0)+'%';
+  document.getElementById('lbl-retention').textContent = (v.retention*100).toFixed(0)+'%';
+  document.getElementById('lbl-blended-premium').textContent = (blendedPremium*100).toFixed(2)+'%';
+  document.getElementById('lbl-renewal-eff').textContent = (renewal*100).toFixed(1)+'%';
+  document.getElementById('lbl-opex-base').textContent = '$'+v.opexBase.toLocaleString();
+  document.getElementById('lbl-opex-growth').textContent = (v.opexGrowth*100).toFixed(0)+'%/yr';
+
+  // Normalize mix labels
+  normalizeMixLabels(v.mix);
+
+  const years = calcAll({...v, propVal, renewal});
+  const perPolicy = propVal * blendedPremium * v.commByYear[0];
+  const totalRev = years.reduce((s,y)=>s+y.total, 0);
+
+  document.getElementById('card-perpolicy').textContent = fmt(perPolicy);
+  document.getElementById('card-y1policies').textContent = fmtN(years[0].newPolicies);
+  document.getElementById('card-y1sub').textContent = 'of '+fmtN(years[0].annual)+' closings';
+  document.getElementById('card-y1rev').textContent = fmt(years[0].total);
+  document.getElementById('card-y5rev').textContent = fmt(years[4].total);
+  document.getElementById('card-y5sub').textContent = fmt(years[4].newRev)+' new + '+fmt(years[4].renewalRev)+' renewal';
+  document.getElementById('card-total').textContent = fmt(totalRev);
+
+  // Mix table — use Y1 rate for display, show blended rate per bucket
+  const displayComm = v.commByYear[0];
+  let mt = '';
+  TYPES.forEach(t => {
+    const blendedRate = getBlendedRateForType(t, v.geo);
+    const prem = blendedRate * propVal;
+    const comm = prem * displayComm;
+    mt += `<tr>
+      <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${COLORS[t]};margin-right:6px;"></span>${LABELS[t]}</td>
+      <td style="text-align:right">${(v.mix[t]*100).toFixed(0)}%</td>
+      <td style="text-align:right">${(RATES_LOW[t]*100).toFixed(2)}% / ${(RATES_HIGH[t]*100).toFixed(2)}%</td>
+      <td style="text-align:right;color:var(--gold)">${(blendedRate*100).toFixed(2)}%</td>
+      <td style="text-align:right">${fmt(prem)}</td>
+      <td style="text-align:right">${fmt(comm)}</td>
+    </tr>`;
+  });
+  mt += `<tr class="net-row"><td>Blended</td><td></td><td colspan="2" style="text-align:right">${(blendedPremium*100).toFixed(2)}%</td><td style="text-align:right">${fmt(blendedPremium*propVal)}</td><td style="text-align:right">${fmt(blendedPremium*propVal*displayComm)}</td></tr>`;
+  document.getElementById('mix-table-body').innerHTML = mt;
+
+  // Main table
+  const rows = [
+    {label:'RBI Monthly Closings', vals:years.map((_,i)=>Math.round(v.loans*Math.pow(1+v.volgrowth,i))), fmt:n=>n.toLocaleString()},
+    {label:'Capture Rate', vals:years.map((_,i)=>Math.min(v.capture*100+i*v.capgrowth*100,80).toFixed(0)+'%'), raw:true},
+    {label:'New Policies', vals:years.map(y=>y.newPolicies), fmt:n=>n.toLocaleString()},
+    {label:'Renewal Policies', vals:years.map(y=>y.renewalPolicies), fmt:n=>n.toLocaleString()},
+    {label:'New Policy Revenue', vals:years.map(y=>y.newRev), fmt:fmt},
+    {label:'Renewal Revenue', vals:years.map(y=>y.renewalRev), fmt:fmt},
+    {label:'⬛ Total Revenue', vals:years.map(y=>y.total), fmt:fmt, net:true},
   ];
   let tb='';
   rows.forEach(r=>{
     const cls=r.net?' class="net-row"':'';
     tb+=`<tr${cls}><td>${r.label}</td>`;
-    r.vals.forEach((val,i)=>{
-      const formatted=r.raw?val:r.fmt(val);
-      const isNeg=!r.raw&&typeof val==='number'&&val<0;
-      tb+=`<td style="${isNeg?'color:var(--red)':''}">${formatted}</td>`;
-    });
+    r.vals.forEach(val=>{ tb+=`<td>${r.raw?val:r.fmt(val)}</td>`; });
     tb+='</tr>';
   });
   document.getElementById('table-body').innerHTML=tb;
-  const maxRev=Math.max(...years.map(y=>y.total));
-  let bb='';
-  years.forEach((y,i)=>{
-    const np=(y.newRev/maxRev*100).toFixed(1),rp=(y.renewalRev/maxRev*100).toFixed(1);
-    bb+=`<tr><td style="text-align:left;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--text);">Y${i+1} — ${fmt(y.total)}</td>
-    <td colspan="5" class="bar-cell"><div style="display:flex;gap:4px;">
-    <div style="flex:1"><div style="font-size:10px;color:var(--muted);margin-bottom:3px;">New ${fmt(y.newRev)}</div><div class="bar-wrap"><div class="bar-fill" style="width:${np}%"></div></div></div>
-    <div style="flex:1"><div style="font-size:10px;color:var(--muted);margin-bottom:3px;">Renewal ${fmt(y.renewalRev)}</div><div class="bar-wrap"><div class="bar-fill renewal" style="width:${rp}%"></div></div></div>
-    </div></td></tr>`;
+
+  // SVG Stacked Column Chart
+  const chartW = document.getElementById('revenue-chart').offsetWidth || 600;
+  const chartH = 260;
+  const padL = 52, padR = 20, padT = 30, padB = 36;
+  const plotW = chartW - padL - padR;
+  const plotH = chartH - padT - padB;
+  const maxRev = Math.max(...years.map(y=>y.total)) * 1.12;
+  const colW = Math.floor(plotW / 5 * 0.55);
+  const gap = plotW / 5;
+
+  let svg = `<svg width="${chartW}" height="${chartH}" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">`;
+
+  // Horizontal grid lines
+  [0, 0.25, 0.5, 0.75, 1].forEach(frac => {
+    const y = padT + plotH * (1 - frac);
+    const val = maxRev * frac;
+    svg += `<line x1="${padL}" y1="${y}" x2="${padL+plotW}" y2="${y}" stroke="#1E2A40" stroke-width="1"/>`;
+    if (frac > 0) svg += `<text x="${padL-6}" y="${y+4}" text-anchor="end" font-size="10" fill="#6B7A99" font-family="DM Sans,sans-serif">${fmt(val)}</text>`;
   });
-  document.getElementById('bar-body').innerHTML=bb;
+
+  // Columns
+  years.forEach((yr, i) => {
+    const cx = padL + gap * i + gap/2;
+    const x = cx - colW/2;
+
+    const newH = (yr.newRev / maxRev) * plotH;
+    const renH = (yr.renewalRev / maxRev) * plotH;
+    const totalH = newH + renH;
+
+    const yNew = padT + plotH - newH;
+    const yRen = padT + plotH - totalH;
+
+    // Renewal segment (gold, on top)
+    if (renH > 2) {
+      svg += `<rect x="${x}" y="${yRen}" width="${colW}" height="${renH}" rx="3" fill="#F5C542" opacity="0.9"/>`;
+      if (renH > 18) {
+        svg += `<text x="${cx}" y="${yRen + renH/2 + 4}" text-anchor="middle" font-size="9" font-weight="700" fill="#080C14" font-family="Syne,sans-serif">${fmt(yr.renewalRev)}</text>`;
+      }
+    }
+
+    // New policy segment (blue, bottom)
+    svg += `<rect x="${x}" y="${yNew}" width="${colW}" height="${newH}" rx="3" fill="#3B7BFF" opacity="0.9"/>`;
+    if (newH > 18) {
+      svg += `<text x="${cx}" y="${yNew + newH/2 + 4}" text-anchor="middle" font-size="9" font-weight="700" fill="#fff" font-family="Syne,sans-serif">${fmt(yr.newRev)}</text>`;
+    }
+
+    // Total label on top
+    const pctRen = yr.total > 0 ? (yr.renewalRev/yr.total*100).toFixed(0) : 0;
+    svg += `<text x="${cx}" y="${padT + plotH - totalH - 8}" text-anchor="middle" font-size="11" font-weight="700" fill="#E8EDF5" font-family="Syne,sans-serif">${fmt(yr.total)}</text>`;
+    if (pctRen > 0) {
+      svg += `<text x="${cx}" y="${padT + plotH - totalH - 20}" text-anchor="middle" font-size="9" fill="#F5C542" font-family="DM Sans,sans-serif">${pctRen}% renewal</text>`;
+    }
+
+    // X axis label
+    svg += `<text x="${cx}" y="${padT + plotH + 18}" text-anchor="middle" font-size="11" font-weight="700" fill="#6B7A99" font-family="Syne,sans-serif">Y${i+1}</text>`;
+  });
+
+  svg += `</svg>`;
+  document.getElementById('revenue-chart').innerHTML = svg;
+
+  // Matrix 1: Capture Rate vs Avg Property Value
+  // Matrix 1: Capture Rate vs Property Value — columns centered on implied propVal
   const captureRates=[0.20,0.30,0.40,0.50,0.60,0.70];
-  const loanSizes=[500000,750000,1000000,1500000,2000000,3000000];
-  let m1='<thead><tr><th>Capture \\ Loan Size</th>';
-  loanSizes.forEach(ls=>{m1+=`<th>${ls>=1e6?'$'+ls/1e6+'M':'$'+ls/1e3+'K'}</th>`;});
+  // Generate 6 columns centered on propVal: 2 below, current, 3 above
+  const step = propVal <= 500000 ? 100000 : propVal <= 1000000 ? 250000 : propVal <= 2000000 ? 500000 : 1000000;
+  const colBase = Math.round(propVal / step) * step;
+  const dynPropVals = [-2,-1,0,1,2,3].map(i => Math.max(100000, colBase + i*step));
+  let m1='<thead><tr><th>Capture \\ Property Value</th>';
+  dynPropVals.forEach(pv=>{
+    const isCurrentCol = pv === colBase;
+    m1+=`<th style="${isCurrentCol?'color:var(--gold)':''}">${pv>=1e6?'$'+(pv/1e6).toFixed(pv%1e6===0?0:1)+'M':'$'+(pv/1e3).toFixed(0)+'K'}${isCurrentCol?' ★':''}</th>`;
+  });
   m1+='</tr></thead><tbody>';
   captureRates.forEach(cap=>{
     m1+=`<tr><td>${(cap*100).toFixed(0)}% capture</td>`;
-    loanSizes.forEach(ls=>{
-      const pp=ls*effPrem*v.commission,policies=Math.round(v.loans*12*cap),rev=policies*pp;
-      const isActive=Math.abs(cap-v.capture)<0.06&&Math.abs(ls-v.loansize)<100000;
-      const cls=isActive?'cell-active':rev<1e6?'cell-low':rev<3e6?'cell-mid':'cell-high';
+    dynPropVals.forEach(pv=>{
+      const yrs=calcAll({...v, propVal:pv, renewal, capture:cap});
+      const rev=yrs[selectedYear].total;
+      const isActive=Math.abs(cap-v.capture)<0.06&&pv===colBase;
+      const cls=isActive?'cell-active':rev<1e6?'cell-low':rev<4e6?'cell-mid':'cell-high';
       m1+=`<td class="${cls}">${fmt(rev)}</td>`;
     });
     m1+='</tr>';
   });
   m1+='</tbody>';
   document.getElementById('matrix-table').innerHTML=m1;
-  const dscrRates=[0.05,0.10,0.15,0.25,0.40,0.60,0.80];
+
+  // Matrix 2: DSCR % vs volume
+  const dscrRates=[0.05,0.10,0.20,0.30,0.40,0.50];
   const volumes=[150,200,300,400,500,600];
   let m2='<thead><tr><th>DSCR % \\ Volume</th>';
-  volumes.forEach(vol=>{m2+=`<th>${vol}/mo</th>`;});
+  volumes.forEach(vol=>{ m2+=`<th>${vol}/mo</th>`; });
   m2+='</tr></thead><tbody>';
   dscrRates.forEach(dscr=>{
     m2+=`<tr><td>${(dscr*100).toFixed(0)}% DSCR</td>`;
     volumes.forEach(vol=>{
       const ren=dscr*v.retention;
-      const vv={...v,loans:vol,renewal:ren,premium:effPrem},yrs=calcAll(vv),rev=yrs[4].total;
-      const isActive=Math.abs(dscr-v.dscr)<0.03&&Math.abs(vol-v.loans)<26;
-      const cls=isActive?'cell-active':rev<2e6?'cell-low':rev<6e6?'cell-mid':'cell-high';
+      const vv={...v, loans:vol, renewal:ren, propVal};
+      const yrs=calcAll(vv), rev=yrs[selectedYear].total;
+      const isActive=Math.abs(dscr-v.dscr)<0.06&&Math.abs(vol-v.loans)<26;
+      const cls=isActive?'cell-active':rev<1e6?'cell-low':rev<3e6?'cell-mid':'cell-high';
       m2+=`<td class="${cls}">${fmt(rev)}</td>`;
     });
     m2+='</tr>';
   });
   m2+='</tbody>';
   document.getElementById('matrix-table2').innerHTML=m2;
+
+  // Matrix 3: Geo mix vs property value — columns centered on implied propVal
   const geoMixes=[0,0.20,0.40,0.60,0.80,1.0];
-  let m3='<thead><tr><th>% High-Cost \\ Loan Size</th>';
-  loanSizes.forEach(ls=>{m3+=`<th>${ls>=1e6?'$'+ls/1e6+'M':'$'+ls/1e3+'K'}</th>`;});
+  const dynPropVals3 = [-2,-1,0,1,2,3].map(i => Math.max(100000, colBase + i*step));
+  let m3='<thead><tr><th>% High-Cost \\ Property Value</th>';
+  dynPropVals3.forEach(pv=>{
+    const isCurrentCol = pv === colBase;
+    m3+=`<th style="${isCurrentCol?'color:var(--gold)':''}">${pv>=1e6?'$'+(pv/1e6).toFixed(pv%1e6===0?0:1)+'M':'$'+(pv/1e3).toFixed(0)+'K'}${isCurrentCol?' ★':''}</th>`;
+  });
   m3+='</tr></thead><tbody>';
   geoMixes.forEach(geo=>{
     m3+=`<tr><td>${(geo*100).toFixed(0)}% high-cost</td>`;
-    loanSizes.forEach(ls=>{
-      const blend=geo*v.geomult+(1-geo)*1.0,ep=v.premium*blend;
-      const pp=ls*ep*v.commission,policies=Math.round(v.loans*12*v.capture),rev=policies*pp;
-      const isActive=Math.abs(geo-v.geo)<0.06&&Math.abs(ls-v.loansize)<100000;
+    dynPropVals3.forEach(pv=>{
+      const geoForMatrix = geo;
+      const yrs=calcAll({...v, propVal:pv, geo:geoForMatrix, renewal});
+      const rev=yrs[selectedYear].total;
+      const isActive=Math.abs(geo-v.geo)<0.06&&pv===colBase;
       const cls=isActive?'cell-active':rev<1e6?'cell-low':rev<4e6?'cell-mid':'cell-high';
       m3+=`<td class="${cls}">${fmt(rev)}</td>`;
     });
     m3+='</tr>';
   });
   m3+='</tbody>';
-  document.getElementById('matrix-table3').innerHTML=m3;
+  // Net income table
+  // Stepped OpEx — matches table values, not compound growth
+  const opexStepped = [153600, 164100, 212100, 266600, 291600];
+  // Scale by ratio of slider base to default base
+  const opexScale = v.opexBase / 153600;
+  const opex = opexStepped.map(o => Math.round(o * opexScale));
+  const capex = 8000;
+
+
   if(!window._settingPreset){document.querySelectorAll('.preset-btn').forEach(b=>b.classList.remove('active'));}
 }
-function setPreset(type){
-  const p={bear:{loans:150,loansize:500,premium:1.5,commission:10,capture:20,capgrowth:3,volgrowth:5,dscr:10,retention:60,geo:30,geomult:1.5},base:{loans:300,loansize:1000,premium:1.5,commission:12,capture:40,capgrowth:5,volgrowth:10,dscr:20,retention:70,geo:50,geomult:1.7},bull:{loans:400,loansize:1500,premium:2.0,commission:15,capture:55,capgrowth:7,volgrowth:15,dscr:40,retention:80,geo:70,geomult:2.0}}[type];
-  ['loans','loansize','premium','commission','capture','capgrowth','volgrowth','dscr','retention','geo','geomult'].forEach(k=>{document.getElementById('sl-'+k).value=p[k];});
-  window._settingPreset=true;update();window._settingPreset=false;
+
+function normalizeMixLabels(mix) {
+  TYPES.forEach(t=>{
+    document.getElementById('lbl-'+t).textContent=(mix[t]*100).toFixed(0)+'%';
+  });
+}
+
+function setPreset(type) {
+  const presets = {
+    bear: {
+      loans:150, loansize:500, ltv:70, commission:10, discount:4, discYears:[1],
+      capture:20, capgrowth:3, volgrowth:5, retention:60, geo:40,
+      opexBase:153600, opexGrowth:10,
+      mix:{fixflip:30, newcon:40, bridge:10, dscrltr:20}
+    },
+    base: {
+      loans:160, loansize:550, ltv:70, commission:12, discount:2, discYears:[1],
+      capture:30, capgrowth:5, volgrowth:10, retention:70, geo:40,
+      opexBase:153600, opexGrowth:10,
+      mix:{fixflip:30, newcon:40, bridge:10, dscrltr:20}
+    },
+    bull: {
+      loans:170, loansize:600, ltv:65, commission:14, discount:2, discYears:[1],
+      capture:45, capgrowth:7, volgrowth:12, retention:80, geo:40,
+      opexBase:153600, opexGrowth:8,
+      mix:{fixflip:30, newcon:40, bridge:10, dscrltr:20}
+    },
+  };
+  const p = presets[type];
+  ['loans','loansize','ltv','commission','capture','capgrowth','volgrowth','retention','geo','opex-base','opex-growth'].forEach(k=>{
+    const el = document.getElementById('sl-'+k);
+    if(el) el.value = p[k.replace('-','')];
+  });
+  document.getElementById('sl-discount').value = p.discount;
+  // Reset discount year toggles
+  discountYears = new Set(p.discYears);
+  [1,2,3,4,5].forEach(y => {
+    document.getElementById('disc-y'+y).classList.toggle('active', discountYears.has(y));
+  });
+  TYPES.forEach(t=>{ document.getElementById('sl-'+t).value=p.mix[t]; });
+  window._settingPreset=true;
+  update();
+  window._settingPreset=false;
   document.querySelectorAll('.preset-btn').forEach(b=>b.classList.remove('active'));
   document.querySelector('.preset-btn.'+type).classList.add('active');
 }
-update();
+
+setPreset('base');
 </script>
-</body>
-</html>
+
+
+</body></html>
